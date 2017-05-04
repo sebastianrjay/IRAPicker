@@ -1,0 +1,23 @@
+{
+  "name": "IRAPicker",
+  "version": "1.0.0",
+  "description": "Not sure whether to choose a traditional or Roth IRA this year? Let software decide.",
+  "main": "index.js",
+  "repository": "https://github.com/sebastianrjay/IRAPicker.git",
+  "author": "Sebastian Jay (sebastianrjay)",
+  "license": "MIT",
+  "scripts": {
+    "webpack": "webpack"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "lodash": "^4.17.4",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "redux": "^3.6.0",
+    "webpack": "^2.5.0"
+  }
+}
