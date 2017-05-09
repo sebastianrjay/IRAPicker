@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "webpack": "webpack",
-    "webpack-dev": "webpack-dev-server --progress --colors"
+    "webpack-dev": "NODE_ENV=development && webpack-dev-server --progress --colors"
   },
   "dependencies": {
     "babel-core": "^6.24.1",
@@ -18,10 +18,17 @@
     "lodash": "^4.17.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "webpack": "^2.5.0"
   },
   "devDependencies": {
+    "css-loader": "^0.28.1",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "redux-logger": "^3.0.1",
+    "style-loader": "^0.17.0",
     "webpack-dev-server": "^2.4.5"
   }
 }
