@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as c from '../../constants/events'
+import { CHANGE_PAGE } from '../../constants/events'
 import CurrentTaxesForm from './forms/current_taxes_form'
 import InvestmentPlanForm from './forms/investment_plan_form'
 import RetirementTaxesForm from './forms/retirement_taxes_form'
@@ -14,17 +14,21 @@ const form = {
 const FIRST_PAGE = 1
 const LAST_PAGE = 3
 
-const FormContainer = ({ changePage, currentFormIsValid, currentPage }) => (
+const FormContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
   <section className="form-container">
     {form[currentPage]}
     {
       currentPage > FIRST_PAGE &&
-      <button onClick={changePage(currentPage - 1)}>Back</button>
+      <button onClick={() => changePage(currentPage - 1, true)}>Back</button>
     }
     {
       currentPage < LAST_PAGE && 
-      // currentFormIsValid &&
-      <button onClick={changePage(currentPage + 1)}>Next</button>
+      <button
+        disabled={!isCurrentFormValid}
+        onClick={() => changePage(currentPage + 1, false)}
+      >
+        Next
+      </button>
     }
   </section>
 )
@@ -32,8 +36,8 @@ const FormContainer = ({ changePage, currentFormIsValid, currentPage }) => (
 const mapStateToProps = (state, _ownProps) => state.formContainer
 
 const mapDispatchToProps = dispatch => ({
-  changePage: (nextPage) => () => (
-    dispatch({ type: c.CHANGE_PAGE, currentPage: nextPage })
+  changePage: (nextPage, isCurrentFormValid) => (
+    dispatch({ type: CHANGE_PAGE, currentPage: nextPage, isCurrentFormValid })
   ),
 })
 

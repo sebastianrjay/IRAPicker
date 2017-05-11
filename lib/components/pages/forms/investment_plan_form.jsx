@@ -2,7 +2,11 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { renderInputField } from '../../../util/redux_form_helpers'
+import {
+  mapDispatchToProps,
+  mapStateToProps,
+  renderInputField
+} from '../../../util/redux_form_helpers'
 import {
   validateCombinedContribution,
   validateNumber,
@@ -31,13 +35,26 @@ const combinedContributionLimit = ({
 }
 
 class InvestmentPlanForm extends Component {
+  formData(prop) {
+    return _.get(this.props, `investmentPlan.${prop}`) || {} 
+  }
+
+  isValid() {
+    const formData = this.formData('values')
+    const { annualIncome, combinedContribution, currentAge } = formData
+    const hasNoErrors = _.isEmpty(this.formData('syncErrors'))
+
+    return annualIncome && combinedContribution && currentAge && hasNoErrors
+  }
+
   render() {
-    const formData = _.get(this.props, 'investmentPlan.values') || {}
-    const { annualIncome, currentAge, has401k, has401kMatching } = formData
+    const props = this.props
+    const formData = this.formData('values')
+    const { has401k } = formData
     const contributionLimit = combinedContributionLimit(formData)
 
     return (
-      <form>
+      <form onKeyUp={() => this.props.setFormValidity(this.isValid())}>
         <div>
           <label>Current Annual Income</label>
           <Field name="annualIncome" component={renderInputField} type="text"
@@ -75,11 +92,15 @@ class InvestmentPlanForm extends Component {
             2017.
           </label>
           <div>
-            <Field name="combinedContribution" component={renderInputField} type="text" 
+            <Field
+              name="combinedContribution"
+              component={renderInputField}
+              type="text" 
               validate={[
                 validateNumber({ field: 'combinedContribution' }),
                 validateCombinedContribution(contributionLimit)
-              ]}/>
+              ]}
+            />
           </div>
         </div>
       </form>
@@ -88,9 +109,12 @@ class InvestmentPlanForm extends Component {
 }
 
 InvestmentPlanForm = reduxForm({
+  destroyOnUnmount: false,
   form: 'investmentPlan',
+  initialValues: {
+    has401k: false,
+    has401kMatching: false,
+  },
 })(InvestmentPlanForm)
 
-const mapStateToProps = (state, _ownProps) => state.form
-
-export default connect(mapStateToProps)(InvestmentPlanForm)
+export default connect(mapStateToProps, mapDispatchToProps)(InvestmentPlanForm)
