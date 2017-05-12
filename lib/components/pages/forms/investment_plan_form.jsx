@@ -48,7 +48,6 @@ class InvestmentPlanForm extends Component {
   }
 
   render() {
-    const props = this.props
     const formData = this.formData('values')
     const { has401k } = formData
     const contributionLimit = combinedContributionLimit(formData)

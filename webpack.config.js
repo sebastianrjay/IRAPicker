@@ -1,7 +1,8 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const devtool = process.env.NODE_ENV === 'production' ? false : 'source-map'
 
 module.exports = {
-  devtool: 'source-map',
+  devtool,
   entry: [
     './lib/main.less',
     './lib/main.jsx',

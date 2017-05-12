@@ -8,9 +8,10 @@
   "license": "MIT",
   "scripts": {
     "webpack": "webpack",
-    "webpack-dev": "NODE_ENV=development && webpack-dev-server --progress --colors"
+    "webpack-dev": "NODE_ENV=development && webpack-dev-server --colors --progress",
+    "webpack-prod": "NODE_ENV=production && webpack --colors --optimize-minimize -p --progress"
   },
-  "dependencies": {
+  "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.24.1",

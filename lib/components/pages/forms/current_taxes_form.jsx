@@ -1,13 +1,11 @@
-import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm, stopAsyncValidation } from 'redux-form'
+import { Field, reduxForm } from 'redux-form'
 import {
   mapStateToProps,
   renderInputField,
 } from '../../../util/redux_form_helpers'
 import fetchZipCodeData from '../../../actions/fetch_zip_code_data'
-import { VALIDATE_CURRENT_FORM } from '../../../constants/events'
 
 class CurrentTaxesForm extends Component {
   render () {
