@@ -7,7 +7,6 @@
   "author": "Sebastian Jay (sebastianrjay)",
   "license": "MIT",
   "scripts": {
-    "webpack": "webpack",
     "webpack-dev": "NODE_ENV=development && webpack-dev-server --colors --progress",
     "webpack-prod": "NODE_ENV=production && webpack --colors --optimize-minimize -p --progress"
   },

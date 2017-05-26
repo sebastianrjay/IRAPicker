@@ -1,8 +1,10 @@
-import _ from 'lodash'
+import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import {
+  combinedContributionLimit,
   mapDispatchToProps,
   mapStateToProps,
   renderInputField
@@ -12,37 +14,15 @@ import {
   validateNumber,
 } from '../../../util/validators'
 
-const combinedContributionLimit = ({
-  annualIncome,
-  currentAge,
-  has401k,
-  has401kMatching,
-}) => {
-  const isFiftyPlus = currentAge >= 50
-  annualIncome = Number(annualIncome)
-
-  if (isFiftyPlus && has401k && has401kMatching) {
-    return _.min([60000, annualIncome])
-  } else if (has401k && has401kMatching) {
-    return _.min([54000, annualIncome])
-  } else if (isFiftyPlus && has401k) {
-    return _.min([24000, annualIncome])
-  } else if (has401k) {
-    return _.min([18000, annualIncome])
-  } else if (isFiftyPlus) {
-    return _.min([6500, annualIncome])
-  } else return _.min([5500, annualIncome])
-}
-
 class InvestmentPlanForm extends Component {
   formData(prop) {
-    return _.get(this.props, `investmentPlan.${prop}`) || {} 
+    return get(this.props, `investmentPlan.${prop}`) || {} 
   }
 
   isValid() {
     const formData = this.formData('values')
     const { annualIncome, combinedContribution, currentAge } = formData
-    const hasNoErrors = _.isEmpty(this.formData('syncErrors'))
+    const hasNoErrors = isEmpty(this.formData('syncErrors'))
 
     return annualIncome && combinedContribution && currentAge && hasNoErrors
   }

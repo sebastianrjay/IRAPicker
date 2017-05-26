@@ -1,3 +1,4 @@
+import pick from 'lodash/pick'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
@@ -16,7 +17,7 @@ class CurrentTaxesForm extends Component {
             Enter your current ZIP code, for income tax estimation purposes.
           </label>
           <Field name="zipCode" component={renderInputField} type="text"
-            props={_.pick(this.props, ['form', 'input'])}/>
+            props={pick(this.props, ['form', 'input'])}/>
           <label>City</label>
           <Field name="city" component={renderInputField} type="text" disabled/>
           <label>State</label>

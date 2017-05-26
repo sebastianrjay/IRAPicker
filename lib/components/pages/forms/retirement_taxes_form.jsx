@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
@@ -11,13 +12,13 @@ import { validateNumber } from '../../../util/validators'
 
 class RetirementTaxesForm extends Component {
   formData(prop) {
-    return _.get(this.props, `retirementTaxes.${prop}`) || {} 
+    return get(this.props, `retirementTaxes.${prop}`) || {} 
   }
 
   isValid() {
     const formData = this.formData('values')
     const { retirementAge, retirementIncome, retirementState } = formData
-    const hasNoErrors = _.isEmpty(this.formData('syncErrors'))
+    const hasNoErrors = isEmpty(this.formData('syncErrors'))
 
     return retirementAge && retirementIncome && retirementState && hasNoErrors
   }
