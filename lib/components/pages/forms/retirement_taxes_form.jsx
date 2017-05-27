@@ -3,19 +3,21 @@ import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import { states } from '../../../constants/tax_data'
 import {
   mapDispatchToProps,
   mapStateToProps,
-  renderInputField
+  renderFormField,
+  renderSelectField,
 } from '../../../util/redux_form_helpers'
 import { validateNumber } from '../../../util/validators'
 
 class RetirementTaxesForm extends Component {
-  formData(prop) {
+  formData (prop) {
     return get(this.props, `retirementTaxes.${prop}`) || {} 
   }
 
-  isValid() {
+  isValid () {
     const formData = this.formData('values')
     const { retirementAge, retirementIncome, retirementState } = formData
     const hasNoErrors = isEmpty(this.formData('syncErrors'))
@@ -27,14 +29,26 @@ class RetirementTaxesForm extends Component {
     return (
       <form onKeyUp={() => this.props.setFormValidity(this.isValid())}>
         <div>
-          <label>Retirement State</label>
-          <Field name="retirementState" component={renderInputField} type="text"/>
-          <label>Retirement Age</label>
-          <Field name="retirementAge" component={renderInputField} type="text"
-            validate={validateNumber({ field: 'retirementAge' })}/>
-          <label>Desired After-Tax Retirement Income</label>
-          <Field name="retirementIncome" component={renderInputField} type="text"
-            validate={validateNumber({ field: 'retirementIncome', isCurrency: true })}/>
+          <Field
+            component={renderSelectField}
+            label="Retirement State"
+            name="retirementState"
+            options={states}
+          />
+          <Field
+            component={renderFormField}
+            label="Retirement Age"
+            name="retirementAge"
+            type="text"
+            validate={validateNumber({ field: 'retirementAge' })}
+          />
+          <Field
+            component={renderFormField}
+            label="Desired Annual After-Tax Retirement Income"
+            name="retirementIncome" 
+            type="text"
+            validate={validateNumber({ field: 'retirementIncome', isCurrency: true })}
+          />
         </div>
       </form>
     )

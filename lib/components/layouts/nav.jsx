@@ -1,9 +1,7 @@
 import React from 'react'
 
 const Nav = (props) => (
-  <nav>
-    <p>Nav</p>
-  </nav>
+  <nav/>
 )
 
 export default Nav

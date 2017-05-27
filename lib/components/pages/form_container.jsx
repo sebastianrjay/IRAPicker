@@ -19,11 +19,17 @@ const FormContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
     {form[currentPage]}
     {
       currentPage > FIRST_PAGE &&
-      <button onClick={() => changePage(currentPage - 1, true)}>Back</button>
+      <button
+        className="btn btn-default prev-button"
+        onClick={() => changePage(currentPage - 1, true)}
+      >
+        Back
+      </button>
     }
     {
       currentPage < LAST_PAGE && 
       <button
+        className="btn btn-primary next-button"
         disabled={!isCurrentFormValid}
         onClick={() => changePage(currentPage + 1, false)}
       >
@@ -41,7 +47,4 @@ const mapDispatchToProps = dispatch => ({
   ),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FormContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(FormContainer)

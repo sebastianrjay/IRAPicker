@@ -4,25 +4,38 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import {
   mapStateToProps,
-  renderInputField,
+  renderFormField,
 } from '../../../util/redux_form_helpers'
 import fetchZipCodeData from '../../../actions/fetch_zip_code_data'
 
 class CurrentTaxesForm extends Component {
+  componentWillMount () {
+    this.props.asyncValidate() // Enable immediate page switch if form is valid
+  }
+
   render () {
     return (
       <form onKeyUp={() => this.props.asyncValidate()}>
-        <div>
-          <label>
-            Enter your current ZIP code, for income tax estimation purposes.
-          </label>
-          <Field name="zipCode" component={renderInputField} type="text"
-            props={pick(this.props, ['form', 'input'])}/>
-          <label>City</label>
-          <Field name="city" component={renderInputField} type="text" disabled/>
-          <label>State</label>
-          <Field name="state" component={renderInputField} type="text" disabled/>
-        </div>
+        <Field
+          component={renderFormField} 
+          label="Enter your current ZIP code, for income tax estimation purposes." 
+          name="zipCode" 
+          type="text"
+        />
+        <Field
+          component={renderFormField}
+          disabled
+          label="City"
+          name="city"
+          type="text"
+        />
+        <Field
+          component={renderFormField}
+          disabled
+          label="State"
+          name="state"
+          type="text"
+        />
       </form>
     )
   }

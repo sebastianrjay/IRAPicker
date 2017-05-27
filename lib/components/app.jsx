@@ -5,13 +5,17 @@ import FormContainer from './pages/form_container'
 import Nav from './layouts/nav'
 
 const App = ({ store }) => (
-  <div id="app">
-    <Nav/>
-    <Provider store={store}> 
-      <FormContainer/>
-    </Provider>
-    <Footer/>
-  </div>
+  <section id="app">
+    <div className="col-md-2"/>
+    <div className="col-md-8">
+      <Nav/>
+      <Provider store={store}> 
+        <FormContainer/>
+      </Provider>
+      <Footer/>
+    </div>
+    <div className="col-md-2"/>
+  </section>
 )
 
 export default App
