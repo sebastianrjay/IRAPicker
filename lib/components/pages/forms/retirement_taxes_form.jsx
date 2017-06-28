@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { states } from '../../../constants/tax_data'
+import { STATES } from '../../../constants/tax_data'
 import {
   mapDispatchToProps,
   mapStateToProps,
@@ -33,7 +33,7 @@ class RetirementTaxesForm extends Component {
             component={renderSelectField}
             label="Retirement State"
             name="retirementState"
-            options={states}
+            options={STATES}
           />
           <Field
             component={renderFormField}
