@@ -16,6 +16,12 @@ import {
 } from '../../../util/validators'
 
 class InvestmentPlanForm extends Component {
+  contributionLabel (contributionLimit) {
+    return `How much of your income do you plan to invest in retirement accounts 
+      this year, including all personal and employer 401(k) contributions? You 
+      can invest a maximum of $${contributionLimit}.00 during tax year 2017.`
+  }
+
   formData (prop) {
     return get(this.props, `investmentPlan.${prop}`) || {} 
   }
@@ -30,25 +36,25 @@ class InvestmentPlanForm extends Component {
 
   render () {
     const formData = this.formData('values')
-    const { has401k, has401kMatching } = formData
-    if (!has401k && has401kMatching) {
-      this.props.resetField('investmentPlan', 'has401kMatching', false)
-    }
     const contributionLimit = combinedContributionLimit(formData)
-    const combinedContributionLabel = `How much of your income do you plan to 
-      invest in retirement accounts this year, including all personal and 
-      employer 401(k) contributions? You can invest a maximum of 
-      ${contributionLimit}.00 during tax year 2017.`
+    const contributionLabel = this.contributionLabel(contributionLimit)
 
     return (
       <form onKeyUp={() => this.props.setFormValidity(this.isValid())}>
         <Field
           component={renderFormField}
-          label="Current Annual Income"
+          label="Current Annual MAGI"
           name="annualIncome"
           type="text"
           validate={validateNumber({ field: 'annualIncome', isCurrency: true })}
         />
+        <p>
+          Click <a
+            target="_blank"
+            href="http://money.cnn.com/tmp/networth2.html"
+          > here </a> to calculate your Modified Adjusted Gross Income. Be sure 
+          to leave the IRA deduction field blank.
+        </p>
         <Field
           component={renderFormField}
           label="Current Age"
@@ -57,25 +63,8 @@ class InvestmentPlanForm extends Component {
           validate={validateNumber({ field: 'currentAge' })}
         />
         <Field
-          component={renderCheckboxField}
-          label="Does your employer enable you to invest in a 401(k)?"
-          name="has401k"
-        />
-        <div className={has401k ? 'form-check' : 'form-check disabled'}>
-          <label className="form-check-label" htmlFor="has401kMatching">
-            <Field
-              className="form-check-input"
-              disabled={!has401k}
-              name="has401kMatching" 
-              component="input" 
-              type="checkbox"
-            />
-            &nbsp;Does your employer match your 401(k) contributions?
-          </label>
-        </div>
-        <Field
           component={renderFormField}
-          label={combinedContributionLabel}
+          label={contributionLabel}
           name="combinedContribution"
           type="text" 
           validate={[
@@ -93,7 +82,7 @@ InvestmentPlanForm = reduxForm({
   form: 'investmentPlan',
   initialValues: {
     has401k: false,
-    has401kMatching: false,
+    spouseHas401k: false,
   },
 })(InvestmentPlanForm)
 
