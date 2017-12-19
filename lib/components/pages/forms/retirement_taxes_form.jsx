@@ -31,13 +31,13 @@ class RetirementTaxesForm extends Component {
         <div>
           <Field
             component={renderSelectField}
-            label="Retirement State"
+            label="Planned Retirement State"
             name="retirementState"
             options={STATES}
           />
           <Field
             component={renderFormField}
-            label="Retirement Age"
+            label="Planned Retirement Age"
             name="retirementAge"
             type="text"
             validate={validateNumber({ field: 'retirementAge' })}

@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { combinedContributionLimit } from '../../../util/calculations'
+import { combinedContributionLimit } from '../../../util/tax_calculations'
 import {
   mapDispatchToProps,
   mapStateToProps,
@@ -17,9 +17,8 @@ import {
 
 class InvestmentPlanForm extends Component {
   contributionLabel (contributionLimit) {
-    return `How much of your income do you plan to invest in retirement accounts 
-      this year, including all personal and employer 401(k) contributions? You 
-      can invest a maximum of $${contributionLimit}.00 during tax year 2017.`
+    return `How much of your income do you plan to invest in your IRA this year? 
+      You can invest a maximum of $${contributionLimit}.00 during tax year 2018.`
   }
 
   formData (prop) {
