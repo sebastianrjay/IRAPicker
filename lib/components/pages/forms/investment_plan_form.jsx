@@ -3,13 +3,13 @@ import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import { combinedContributionLimit } from '../../../util/calculations'
 import {
-  combinedContributionLimit,
   mapDispatchToProps,
   mapStateToProps,
   renderCheckboxField,
   renderFormField,
-} from '../../../util/redux_form_helpers'
+} from '../../../util/form_helpers'
 import {
   validateCombinedContribution,
   validateNumber,

@@ -8,7 +8,7 @@ import {
   renderCheckboxField,
   renderFormField,
   renderSelectField,
-} from '../../../util/redux_form_helpers'
+} from '../../../util/form_helpers'
 import fetchZipCodeData from '../../../actions/fetch_zip_code_data'
 import { TAX_FILING_STATUSES } from '../../../constants/tax_data'
 
