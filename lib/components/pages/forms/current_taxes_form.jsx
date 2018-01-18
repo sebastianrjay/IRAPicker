@@ -9,6 +9,10 @@ import {
   renderFormField,
   renderSelectField,
 } from '../../../util/form_helpers'
+import {
+  afterTaxIncome,
+  combinedTaxPercentage,
+} from '../../../util/tax_calculations'
 import fetchZipCodeData from '../../../actions/fetch_zip_code_data'
 import { TAX_FILING_STATUSES } from '../../../constants/tax_data'
 
@@ -18,11 +22,11 @@ class CurrentTaxesForm extends Component {
   }
 
   formData (prop) {
-    return get(this.props, `currentTaxes.${prop}`) || {} 
+    return get(this.props, `currentTaxes.values.${prop}`) 
   }
 
   render () {
-    const taxFilingStatus = this.formData('values').taxFilingStatus || ''
+    const taxFilingStatus = this.formData('taxFilingStatus') || ''
     const isMarried = taxFilingStatus.match(/Married/)
     return (
       <form onKeyUp={() => this.props.asyncValidate()}>
@@ -69,8 +73,28 @@ class CurrentTaxesForm extends Component {
           name="state"
           type="text"
         />
+        {
+          this.showTaxesPaid()
+            ? <p>{this.taxesPaidCopy()}</p>
+            : ''
+        }
       </form>
     )
+  }
+
+  showTaxesPaid () {
+    return this.formData('zipCode') && this.formData('state')
+  }
+
+  taxesPaidCopy () {
+    const annualIncome = get(this.props, 'investmentPlan.values.annualIncome')
+    const { state, taxFilingStatus } = get(this.props, 'currentTaxes.values')
+    const netIncome = afterTaxIncome({ annualIncome, state, taxFilingStatus })
+    const taxPercentage = combinedTaxPercentage(annualIncome, netIncome)
+    return `You will pay approximately ${taxPercentage}% of your income in taxes
+      this year, including Medicare and Social Security contributions. You will 
+      earn around $${netIncome} after taxes, excluding your tax refund from any 
+      traditional IRA contribution(s).`
   }
 }
 
@@ -79,6 +103,9 @@ CurrentTaxesForm = reduxForm({
   asyncValidate: fetchZipCodeData,
   destroyOnUnmount: false,
   form: 'currentTaxes',
+  initialValues: {
+    taxFilingStatus: TAX_FILING_STATUSES[0],
+  },
 })(CurrentTaxesForm)
 
 export default connect(mapStateToProps)(CurrentTaxesForm)
