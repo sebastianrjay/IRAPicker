@@ -1,4 +1,6 @@
+import at from 'lodash/at'
 import get from 'lodash/get'
+import merge from 'lodash/merge'
 import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -10,6 +12,7 @@ import {
   renderFormField,
   renderSelectField,
 } from '../../../util/form_helpers'
+import Summary from '../../partials/summary.jsx'
 import { validateNumber } from '../../../util/validators'
 
 class RetirementTaxesForm extends Component {
@@ -50,8 +53,18 @@ class RetirementTaxesForm extends Component {
             validate={validateNumber({ field: 'retirementIncome', isCurrency: true })}
           />
         </div>
+        <Summary {...this.summaryProps()} />
       </form>
     )
+  }
+
+  summaryProps () {
+    const formDataObjects = at(this.props, [
+      'currentTaxes.values',
+      'investmentPlan.values',
+      'retirementTaxes.values',
+    ])
+    return merge({}, ...formDataObjects)
   }
 }
 
