@@ -8,6 +8,7 @@ import {
   renderCheckboxField,
   renderFormField,
   renderSelectField,
+  toDollarString,
 } from '../../../util/form_helpers'
 import {
   afterTaxIncome,
@@ -93,8 +94,8 @@ class CurrentTaxesForm extends Component {
     const taxPercentage = combinedTaxPercentage(annualIncome, netIncome)
     return `You will pay approximately ${taxPercentage}% of your income in taxes
       this year, including Medicare and Social Security contributions. You will 
-      earn around $${netIncome} after taxes, excluding your tax refund from any 
-      traditional IRA contribution(s).`
+      earn around ${toDollarString(netIncome)} after taxes, excluding your tax 
+      refund from any traditional IRA contribution(s).`
   }
 }
 
