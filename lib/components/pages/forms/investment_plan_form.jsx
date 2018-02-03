@@ -5,12 +5,12 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { iraContributionLimit } from '../../../util/tax_calculations'
 import {
-  mapDispatchToProps,
-  mapStateToProps,
+  mapFormDispatchToProps,
+  mapFormStateToProps,
   renderCheckboxField,
   renderFormField,
-  toDollarString,
 } from '../../../util/form_helpers'
+import { toDollarString } from '../../../util/page_helpers'
 import {
   validateCombinedContribution,
   validateNumber,
@@ -87,4 +87,4 @@ InvestmentPlanForm = reduxForm({
   },
 })(InvestmentPlanForm)
 
-export default connect(mapStateToProps, mapDispatchToProps)(InvestmentPlanForm)
+export default connect(mapFormStateToProps, mapFormDispatchToProps)(InvestmentPlanForm)

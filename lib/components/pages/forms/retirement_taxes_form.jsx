@@ -1,18 +1,15 @@
-import at from 'lodash/at'
 import get from 'lodash/get'
-import merge from 'lodash/merge'
 import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { STATES } from '../../../constants/tax_data'
 import {
-  mapDispatchToProps,
-  mapStateToProps,
+  mapFormDispatchToProps,
+  mapFormStateToProps,
   renderFormField,
   renderSelectField,
 } from '../../../util/form_helpers'
-import Summary from '../../partials/summary.jsx'
 import { validateNumber } from '../../../util/validators'
 
 class RetirementTaxesForm extends Component {
@@ -53,18 +50,8 @@ class RetirementTaxesForm extends Component {
             validate={validateNumber({ field: 'retirementIncome', isCurrency: true })}
           />
         </div>
-        <Summary {...this.summaryProps()} />
       </form>
     )
-  }
-
-  summaryProps () {
-    const formDataObjects = at(this.props, [
-      'currentTaxes.values',
-      'investmentPlan.values',
-      'retirementTaxes.values',
-    ])
-    return merge({}, ...formDataObjects)
   }
 }
 
@@ -73,4 +60,4 @@ RetirementTaxesForm = reduxForm({
   form: 'retirementTaxes',
 })(RetirementTaxesForm)
 
-export default connect(mapStateToProps, mapDispatchToProps)(RetirementTaxesForm)
+export default connect(mapFormStateToProps, mapFormDispatchToProps)(RetirementTaxesForm)

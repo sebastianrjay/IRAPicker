@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import Footer from './partials/footer'
-import FormContainer from './pages/form_container'
+import PageContainer from './pages/page_container'
 import Nav from './partials/nav'
 
 const App = ({ store }) => (
@@ -9,7 +9,7 @@ const App = ({ store }) => (
     <div className="col-md-8 offset-md-2">
       <Nav/>
       <Provider store={store}> 
-        <FormContainer/>
+        <PageContainer/>
       </Provider>
       <Footer/>
     </div>

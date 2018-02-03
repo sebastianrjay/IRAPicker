@@ -4,12 +4,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import {
-  mapStateToProps,
+  mapFormStateToProps,
   renderCheckboxField,
   renderFormField,
   renderSelectField,
-  toDollarString,
 } from '../../../util/form_helpers'
+import { toDollarString } from '../../../util/page_helpers'
 import {
   afterIncomeTaxIncome,
   combinedTaxPercentage,
@@ -109,4 +109,4 @@ CurrentTaxesForm = reduxForm({
   },
 })(CurrentTaxesForm)
 
-export default connect(mapStateToProps)(CurrentTaxesForm)
+export default connect(mapFormStateToProps)(CurrentTaxesForm)

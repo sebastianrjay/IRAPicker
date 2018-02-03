@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { toDollarString } from '../../util/form_helpers'
+import { mapSummaryStateToProps, toDollarString } from '../../util/page_helpers'
 import {
   beforeCapitalGainsTaxRetirementIncome,
   beforeIncomeTaxIncome,
@@ -8,7 +8,8 @@ import {
   traditionalIRATaxRefund,
   traditionalIRAWithdrawal,
 } from '../../util/tax_calculations'
-import AccountSummaryTable from './account_summary_table.jsx'
+import { MINIMUM_DISTRIBUTION_URL } from '../../constants/tax_data'
+import AccountSummaryTable from '../partials/account_summary_table'
 
 const Summary = (props) => {
   if (!props.annualIncome || !props.retirementIncome) return null
@@ -53,19 +54,25 @@ const Summary = (props) => {
         </p>
         <AccountSummaryTable {...props}/>
         <p>
-          <span className="font-weight-bold">NOTE:</span> These calculations 
-          assume that you will drain your traditional IRA account before 
-          draining your non-IRA account, if using a traditional IRA. The best 
-          IRA choice is the one that gives you the most Total Years of 
-          Retirement Income. If using a traditional IRA, it may be possible to 
-          extend your years of income by simultaneously withdrawing money from 
-          your IRA and non-IRA accounts, and withdrawing little enough annual 
-          income from your non-IRA account that you pay no federal capital gains 
-          tax.
+          <span className="font-weight-bold">NOTE:</span> The best IRA choice is 
+          the one that gives you the most Total Years of Retirement Income.
+        </p>
+        <p>
+          These calculations assume that you will drain your traditional IRA 
+          account before draining your non-IRA account, if using a traditional 
+          IRA. The reason is that <a
+            href={MINIMUM_DISTRIBUTION_URL}
+            target="_blank"
+          >minimum IRA distributions</a> are required starting at age 
+          70<span className="small">1/2</span>. If using a traditional IRA, it 
+          may be possible to extend your years of income by simultaneously 
+          withdrawing money from your IRA and non-IRA accounts, and withdrawing 
+          little enough annual income from your non-IRA account that you pay no 
+          federal capital gains tax.
         </p>
       </div>
     </div>
   )
 }
 
-export default Summary
+export default connect(mapSummaryStateToProps)(Summary)
