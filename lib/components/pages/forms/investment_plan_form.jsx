@@ -3,12 +3,13 @@ import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { combinedContributionLimit } from '../../../util/tax_calculations'
+import { iraContributionLimit } from '../../../util/tax_calculations'
 import {
   mapDispatchToProps,
   mapStateToProps,
   renderCheckboxField,
   renderFormField,
+  toDollarString,
 } from '../../../util/form_helpers'
 import {
   validateCombinedContribution,
@@ -18,7 +19,8 @@ import {
 class InvestmentPlanForm extends Component {
   contributionLabel (contributionLimit) {
     return `How much of your income do you plan to invest in your IRA this year? 
-      You can invest a maximum of $${contributionLimit}.00 during tax year 2018.`
+      You can invest a maximum of ${toDollarString(contributionLimit)} 
+      during tax year 2018.`
   }
 
   formData (prop) {
@@ -27,15 +29,15 @@ class InvestmentPlanForm extends Component {
 
   isValid () {
     const formData = this.formData('values')
-    const { annualIncome, combinedContribution, currentAge } = formData
+    const { annualIncome, iraContribution, currentAge } = formData
     const hasNoErrors = isEmpty(this.formData('syncErrors'))
 
-    return annualIncome && combinedContribution && currentAge && hasNoErrors
+    return annualIncome && iraContribution && currentAge && hasNoErrors
   }
 
   render () {
     const formData = this.formData('values')
-    const contributionLimit = combinedContributionLimit(formData)
+    const contributionLimit = iraContributionLimit(formData)
     const contributionLabel = this.contributionLabel(contributionLimit)
 
     return (
@@ -64,10 +66,10 @@ class InvestmentPlanForm extends Component {
         <Field
           component={renderFormField}
           label={contributionLabel}
-          name="combinedContribution"
+          name="iraContribution"
           type="text" 
           validate={[
-            validateNumber({ field: 'combinedContribution' }),
+            validateNumber({ field: 'iraContribution' }),
             validateCombinedContribution(contributionLimit)
           ]}
         />

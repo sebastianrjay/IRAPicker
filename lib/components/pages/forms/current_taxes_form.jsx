@@ -11,7 +11,7 @@ import {
   toDollarString,
 } from '../../../util/form_helpers'
 import {
-  afterTaxIncome,
+  afterIncomeTaxIncome,
   combinedTaxPercentage,
 } from '../../../util/tax_calculations'
 import fetchZipCodeData from '../../../actions/fetch_zip_code_data'
@@ -90,7 +90,7 @@ class CurrentTaxesForm extends Component {
   taxesPaidCopy () {
     const annualIncome = get(this.props, 'investmentPlan.values.annualIncome')
     const { state, taxFilingStatus } = get(this.props, 'currentTaxes.values')
-    const netIncome = afterTaxIncome({ annualIncome, state, taxFilingStatus })
+    const netIncome = afterIncomeTaxIncome({ annualIncome, state, taxFilingStatus })
     const taxPercentage = combinedTaxPercentage(annualIncome, netIncome)
     return `You will pay approximately ${taxPercentage}% of your income in taxes
       this year, including Medicare and Social Security contributions. You will 
