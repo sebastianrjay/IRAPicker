@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { toDollarString } from '../../util/form_helpers'
 import {
+  beforeCapitalGainsTaxRetirementIncome,
   beforeIncomeTaxIncome,
   traditionalIRATaxDeduction,
   traditionalIRATaxRefund,
@@ -32,6 +33,18 @@ const Summary = (props) => {
         </p>
         <p>
           {
+            `To earn a post-tax retirement income of 
+            ${toDollarString(props.retirementIncome)}, you will need to annually 
+            withdraw ${toDollarString(props.retirementIncome)} from your Roth 
+            IRA, ${toDollarString(traditionalIRAWithdrawal(props))} from your 
+            traditional IRA, or 
+            ${toDollarString(beforeCapitalGainsTaxRetirementIncome(props))} 
+            from any non-tax advantaged retirement account on which capital 
+            gains tax is payable.`
+          }
+        </p>
+        <p>
+          {
             `If you continue annually investing 
             ${toDollarString(props.iraContribution)} in one IRA account and 
             investing all tax refunds from traditional IRA contributions in other 
@@ -40,13 +53,15 @@ const Summary = (props) => {
         </p>
         <AccountSummaryTable {...props}/>
         <p>
-          {
-            `To earn a post-tax retirement income of 
-            ${toDollarString(props.retirementIncome)}, you will need to annually 
-            withdraw ${toDollarString(props.retirementIncome)} from your Roth 
-            IRA, or ${toDollarString(traditionalIRAWithdrawal(props))} from your 
-            traditional IRA and other non-tax advantaged retirement accounts.`
-          }
+          <span className="font-weight-bold">NOTE:</span> These calculations 
+          assume that you will drain your traditional IRA account before 
+          draining your non-IRA account, if using a traditional IRA. The best 
+          IRA choice is the one that gives you the most Total Years of 
+          Retirement Income. If using a traditional IRA, it may be possible to 
+          extend your years of income by simultaneously withdrawing money from 
+          your IRA and non-IRA accounts, and withdrawing little enough annual 
+          income from your non-IRA account that you pay no federal capital gains 
+          tax.
         </p>
       </div>
     </div>

@@ -19,8 +19,8 @@ import {
 class InvestmentPlanForm extends Component {
   contributionLabel (contributionLimit) {
     return `How much of your income do you plan to invest in your IRA this year? 
-      You can invest a maximum of ${toDollarString(contributionLimit)} 
-      during tax year 2018.`
+      You can invest a maximum of ${toDollarString(contributionLimit)} during 
+      tax year 2018.`
   }
 
   formData (prop) {
@@ -29,10 +29,10 @@ class InvestmentPlanForm extends Component {
 
   isValid () {
     const formData = this.formData('values')
-    const { annualIncome, iraContribution, currentAge } = formData
+    const { annualIncome, currentAge, iraContribution } = formData
     const hasNoErrors = isEmpty(this.formData('syncErrors'))
 
-    return annualIncome && iraContribution && currentAge && hasNoErrors
+    return annualIncome && currentAge && hasNoErrors && iraContribution
   }
 
   render () {

@@ -13,13 +13,18 @@ import {
 const AccountSummaryTable = (props) => {
   const iraAccountBalance = accountBalanceAtRetirement(props)
   const taxRefund = traditionalIRATaxRefund(props)
-  const nonIRAAccountProps = merge({}, props, { contribution: taxRefund })
-  const nonIRABalance = accountBalanceAtRetirement(nonIRAAccountProps)
   const iraProps = { accountBalance: iraAccountBalance }
   const rothIRAYears = yearsOfRetirementIncome(merge(iraProps, props))
   const tradIRAProps =
     merge({}, iraProps, { retirementIncome: traditionalIRAWithdrawal(props) })
   const tradIRAYears = yearsOfRetirementIncome(tradIRAProps)
+  const nonIRAFirstWithdrawalAge =
+    Number(props.retirementAge) + (tradIRAYears === Infinity ? 0 : tradIRAYears)
+  const nonIRAAccountProps = merge({}, props, {
+    contribution: taxRefund,
+    retirementAge: nonIRAFirstWithdrawalAge,
+  })
+  const nonIRABalance = accountBalanceAtRetirement(nonIRAAccountProps)
   const nonIRAWithdrawalProps = merge({}, {
     accountBalance: nonIRABalance,
     retirementIncome: beforeCapitalGainsTaxRetirementIncome(props),
@@ -33,16 +38,23 @@ const AccountSummaryTable = (props) => {
           <th>IRA Choice</th>
           <th>Annual IRA Contribution Tax Refund</th>
           <th>IRA Account Balance at Retirement</th>
-          <th>Non-IRA Account Balance at Retirement</th>
+          <th>
+            {
+              nonIRAFirstWithdrawalAge == props.retirementAge ?
+                'Non-IRA Account Balance at Retirement'
+              : `Non-IRA Account Balance at Age 
+                ${Math.floor(nonIRAFirstWithdrawalAge)}, on First Withdrawal`
+            }
+          </th>
           <th>Total Years of Retirement Income</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">Roth IRA</th>
-          <td>$0.00</td>
+          <td>N/A</td>
           <td>{toDollarString(iraAccountBalance)}</td>
-          <td>$0.00</td>
+          <td>N/A</td>
           <td>{rothIRAYears.toFixed(2)}</td>
         </tr>
         <tr>
