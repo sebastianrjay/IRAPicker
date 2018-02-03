@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { mapSummaryStateToProps, toDollarString } from '../../util/page_helpers'
 import {
   beforeCapitalGainsTaxRetirementIncome,
-  beforeIncomeTaxIncome,
+  beforeIncomeTaxRetirementIncome,
   traditionalIRATaxDeduction,
   traditionalIRATaxRefund,
   traditionalIRAWithdrawal,
