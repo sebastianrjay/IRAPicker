@@ -1,5 +1,5 @@
 import merge from 'lodash/merge'
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { toDollarString } from '../../util/page_helpers'
 import {

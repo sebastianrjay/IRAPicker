@@ -1,8 +1,7 @@
-import get from 'lodash/get'
-import isEmpty from 'lodash/isEmpty'
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import BaseForm from '../../partials/base_form'
 import { iraContributionLimit } from '../../../util/tax_calculations'
 import {
   mapFormDispatchToProps,
@@ -16,27 +15,20 @@ import {
   validateNumber,
 } from '../../../util/validators'
 
-class InvestmentPlanForm extends Component {
+class InvestmentPlanForm extends BaseForm {
   contributionLabel (contributionLimit) {
     return `How much of your income do you plan to invest in your IRA this year? 
       You can invest a maximum of ${toDollarString(contributionLimit)} during 
       tax year 2018.`
   }
 
-  formData (prop) {
-    return get(this.props, `investmentPlan.${prop}`) || {} 
-  }
-
   isValid () {
-    const formData = this.formData('values')
-    const { annualIncome, currentAge, iraContribution } = formData
-    const hasNoErrors = isEmpty(this.formData('syncErrors'))
-
-    return annualIncome && currentAge && hasNoErrors && iraContribution
+    const { annualIncome, currentAge, iraContribution } = this.formData()
+    return annualIncome && currentAge && iraContribution && this.hasNoErrors()
   }
 
   render () {
-    const formData = this.formData('values')
+    const formData = this.formData()
     const contributionLimit = iraContributionLimit(formData)
     const contributionLabel = this.contributionLabel(contributionLimit)
 

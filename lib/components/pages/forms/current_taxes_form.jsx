@@ -1,8 +1,8 @@
 import get from 'lodash/get'
-import pick from 'lodash/pick'
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import BaseForm from '../../partials/base_form'
 import {
   mapFormStateToProps,
   renderCheckboxField,
@@ -17,17 +17,13 @@ import {
 import fetchZipCodeData from '../../../actions/fetch_zip_code_data'
 import { TAX_FILING_STATUSES } from '../../../constants/tax_data'
 
-class CurrentTaxesForm extends Component {
+class CurrentTaxesForm extends BaseForm {
   componentWillMount () {
     this.props.asyncValidate() // Enable immediate page switch if form is valid
   }
 
-  formData (prop) {
-    return get(this.props, `currentTaxes.values.${prop}`) 
-  }
-
   render () {
-    const taxFilingStatus = this.formData('taxFilingStatus') || ''
+    const taxFilingStatus = this.formData().taxFilingStatus || ''
     const isMarried = taxFilingStatus.match(/Married/)
     return (
       <form className="mb-5" onKeyUp={() => this.props.asyncValidate()}>
@@ -84,12 +80,12 @@ class CurrentTaxesForm extends Component {
   }
 
   showTaxesPaid () {
-    return this.formData('zipCode') && this.formData('state')
+    return this.formData().zipCode && this.formData().state
   }
 
   taxesPaidCopy () {
     const annualIncome = get(this.props, 'investmentPlan.values.annualIncome')
-    const { state, taxFilingStatus } = get(this.props, 'currentTaxes.values')
+    const { state, taxFilingStatus } = this.formData()
     const netIncome = afterIncomeTaxIncome({ annualIncome, state, taxFilingStatus })
     const taxPercentage = combinedTaxPercentage(annualIncome, netIncome)
     return `You will pay approximately ${taxPercentage}% of your income in taxes

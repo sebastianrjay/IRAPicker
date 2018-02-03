@@ -1,8 +1,7 @@
-import get from 'lodash/get'
-import isEmpty from 'lodash/isEmpty'
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import BaseForm from '../../partials/base_form'
 import { STATES } from '../../../constants/tax_data'
 import {
   mapFormDispatchToProps,
@@ -12,21 +11,11 @@ import {
 } from '../../../util/form_helpers'
 import { validateNumber } from '../../../util/validators'
 
-class RetirementTaxesForm extends Component {
-  componentWillMount () {
-    this.props.setFormValidity(this.isValid())
-  }
-
-  formData (prop) {
-    return get(this.props, `retirementTaxes.${prop}`) || {} 
-  }
-
+class RetirementTaxesForm extends BaseForm {
   isValid () {
-    const formData = this.formData('values')
-    const { retirementAge, retirementIncome, retirementState } = formData
-    const hasNoErrors = isEmpty(this.formData('syncErrors'))
-
-    return retirementAge && retirementIncome && retirementState && hasNoErrors
+    const { retirementAge, retirementIncome, retirementState } = this.formData()
+    const noErrors = this.hasNoErrors()
+    return retirementAge && retirementIncome && retirementState && noErrors
   }
 
   render () {
@@ -35,28 +24,26 @@ class RetirementTaxesForm extends Component {
         className="mb-5"
         onKeyUp={() => this.props.setFormValidity(this.isValid())}
       >
-        <div>
-          <Field
-            component={renderSelectField}
-            label="Planned Retirement State"
-            name="retirementState"
-            options={STATES}
-          />
-          <Field
-            component={renderFormField}
-            label="Planned Retirement Age"
-            name="retirementAge"
-            type="text"
-            validate={validateNumber({ field: 'retirementAge' })}
-          />
-          <Field
-            component={renderFormField}
-            label="Desired Annual After-Tax Retirement Income"
-            name="retirementIncome" 
-            type="text"
-            validate={validateNumber({ field: 'retirementIncome', isCurrency: true })}
-          />
-        </div>
+        <Field
+          component={renderSelectField}
+          label="Planned Retirement State"
+          name="retirementState"
+          options={STATES}
+        />
+        <Field
+          component={renderFormField}
+          label="Planned Retirement Age"
+          name="retirementAge"
+          type="text"
+          validate={validateNumber({ field: 'retirementAge' })}
+        />
+        <Field
+          component={renderFormField}
+          label="Desired Annual After-Tax Retirement Income"
+          name="retirementIncome" 
+          type="text"
+          validate={validateNumber({ field: 'retirementIncome', isCurrency: true })}
+        />
       </form>
     )
   }
