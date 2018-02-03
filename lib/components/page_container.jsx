@@ -19,10 +19,10 @@ const FIRST_PAGE = 1
 const LAST_PAGE = 4
 
 const PageContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
-  <section>
+  <div>
     <Nav/>
-    <div className="row mb-5 mt-5">
-      <div className="col-md-8 offset-md-2">
+    <div className="row mx-3 my-5 py-5">
+      <div className="col-md-8 offset-md-2 col-sm-12">
         {pages[currentPage]}
         {
           currentPage > FIRST_PAGE &&
@@ -46,7 +46,7 @@ const PageContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
       </div>
     </div>
     <Footer/>
-  </section>
+  </div>
 )
 
 const mapStateToProps = (state, _ownProps) => state.pageContainer

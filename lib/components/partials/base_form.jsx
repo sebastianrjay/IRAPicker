@@ -5,9 +5,9 @@ import React, { Component } from 'react'
 
 class BaseForm extends Component {
   componentWillMount () {
-    if ('function' === typeof this.isValid) {
-      this.props.setFormValidity(this.isValid())
-    }
+    if ('function' !== typeof this.isValid) return
+    if ('function' !== typeof this.props.setFormValidity) return
+    this.props.setFormValidity(this.isValid())
   }
 
   formData () {
