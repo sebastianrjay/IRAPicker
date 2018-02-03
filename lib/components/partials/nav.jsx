@@ -4,7 +4,10 @@ const Nav = (props) => (
   <nav className="navbar navbar-inverse bg-primary fixed-top">
     <div className="navbar-inner">
       <div className="container-fluid">
-        <span className="navbar-brand">IRA Picker</span>
+        <span className="navbar-brand">
+          <img className="logo-img" src="piggy-bank-logo.png"></img>
+          <span className="logo-text">IRA Picker</span>
+        </span>
         <span className="navbar-text float-right">
           Find the right IRA for you.
         </span>
