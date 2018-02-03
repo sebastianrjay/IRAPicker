@@ -54,8 +54,9 @@ const Summary = (props) => {
         </p>
         <AccountSummaryTable {...props}/>
         <p>
-          <span className="font-weight-bold">NOTE:</span> The best IRA choice is 
-          the one that gives you the most Total Years of Retirement Income.
+          <span className="font-weight-bold">NOTE:</span> The best IRA account 
+          for you is the one that gives you the most Total Years of Retirement 
+          Income.
         </p>
         <p>
           These calculations assume that you will drain your traditional IRA 

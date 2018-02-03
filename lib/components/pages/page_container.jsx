@@ -25,7 +25,7 @@ const PageContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
         className="btn btn-lg btn-secondary float-left"
         onClick={() => changePage(currentPage - 1, true)}
       >
-        Back
+        <i className="fa fa-angle-left"></i>&nbsp;&nbsp;Back
       </button>
     }
     {
@@ -35,7 +35,7 @@ const PageContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
         disabled={!isCurrentFormValid}
         onClick={() => changePage(currentPage + 1, false)}
       >
-        Next
+        Next&nbsp;&nbsp;<i className="fa fa-angle-right"></i>
       </button>
     }
   </section>

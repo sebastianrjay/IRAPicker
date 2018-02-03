@@ -12,7 +12,7 @@ import {
 } from '../../../util/form_helpers'
 import { toDollarString } from '../../../util/page_helpers'
 import {
-  validateCombinedContribution,
+  validateIRAContribution,
   validateNumber,
 } from '../../../util/validators'
 
@@ -70,7 +70,7 @@ class InvestmentPlanForm extends Component {
           type="text" 
           validate={[
             validateNumber({ field: 'iraContribution' }),
-            validateCombinedContribution(contributionLimit)
+            validateIRAContribution(contributionLimit)
           ]}
         />
       </form>
