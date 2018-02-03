@@ -13,6 +13,10 @@ import {
 import { validateNumber } from '../../../util/validators'
 
 class RetirementTaxesForm extends Component {
+  componentWillMount () {
+    this.props.setFormValidity(this.isValid())
+  }
+
   formData (prop) {
     return get(this.props, `retirementTaxes.${prop}`) || {} 
   }
@@ -27,7 +31,10 @@ class RetirementTaxesForm extends Component {
 
   render () {
     return (
-      <form onKeyUp={() => this.props.setFormValidity(this.isValid())}>
+      <form
+        className="mb-5"
+        onKeyUp={() => this.props.setFormValidity(this.isValid())}
+      >
         <div>
           <Field
             component={renderSelectField}

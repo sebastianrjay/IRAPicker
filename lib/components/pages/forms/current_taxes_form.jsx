@@ -30,7 +30,7 @@ class CurrentTaxesForm extends Component {
     const taxFilingStatus = this.formData('taxFilingStatus') || ''
     const isMarried = taxFilingStatus.match(/Married/)
     return (
-      <form onKeyUp={() => this.props.asyncValidate()}>
+      <form className="mb-5" onKeyUp={() => this.props.asyncValidate()}>
         <Field
           component={renderSelectField}
           label="What is your tax filing status?"

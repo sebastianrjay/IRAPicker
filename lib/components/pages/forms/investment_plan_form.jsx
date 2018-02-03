@@ -41,10 +41,13 @@ class InvestmentPlanForm extends Component {
     const contributionLabel = this.contributionLabel(contributionLimit)
 
     return (
-      <form onKeyUp={() => this.props.setFormValidity(this.isValid())}>
+      <form
+        className="mb-5"
+        onKeyUp={() => this.props.setFormValidity(this.isValid())}
+      >
         <Field
           component={renderFormField}
-          label="Current Annual MAGI"
+          label="Current Annual Modified Adjusted Gross Income"
           name="annualIncome"
           type="text"
           validate={validateNumber({ field: 'annualIncome', isCurrency: true })}

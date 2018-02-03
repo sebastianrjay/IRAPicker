@@ -15,7 +15,7 @@ const Summary = (props) => {
   if (!props.annualIncome || !props.retirementIncome) return null
 
   return (
-    <div className="row">
+    <div className="row mb-5">
       <div className="col-md-12">
         <p>
           {
