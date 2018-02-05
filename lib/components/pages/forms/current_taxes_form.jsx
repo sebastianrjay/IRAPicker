@@ -52,7 +52,7 @@ class CurrentTaxesForm extends BaseForm {
         </div>
         <Field
           component={renderFormField} 
-          label="Enter your current ZIP code, for income tax estimation purposes." 
+          label="Enter your current U.S. ZIP code, for income tax estimation purposes." 
           name="zipCode" 
           type="text"
         />

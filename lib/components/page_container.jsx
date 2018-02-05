@@ -8,6 +8,13 @@ import Summary from './pages/summary'
 import Footer from './partials/footer'
 import Nav from './partials/nav'
 
+const headers = {
+  1: 'Step 1: What is your IRA savings goal and income this year?',
+  2: 'Step 2: What is your current basic tax info?',
+  3: 'Step 3: What are your retirement plans?',
+  4: 'Results',
+}
+
 const pages = {
   1: <InvestmentPlanForm/>,
   2: <CurrentTaxesForm/>,
@@ -23,6 +30,7 @@ const PageContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
     <Nav/>
     <div className="row mx-3 my-5 py-5">
       <div className="col-md-8 offset-md-2 col-sm-12">
+        <h2 className="mb-5">{headers[currentPage]}</h2>
         {pages[currentPage]}
         {
           currentPage > FIRST_PAGE &&

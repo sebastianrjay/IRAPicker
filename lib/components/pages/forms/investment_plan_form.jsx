@@ -17,9 +17,9 @@ import {
 
 class InvestmentPlanForm extends BaseForm {
   contributionLabel (contributionLimit) {
-    return `How much of your income do you plan to invest in your IRA this year? 
-      You can invest a maximum of ${toDollarString(contributionLimit)} during 
-      tax year 2018.`
+    return `How much of your income do you plan to invest in your IRA account 
+      this year? You can invest a maximum of ${toDollarString(contributionLimit)} 
+      during tax year 2018.`
   }
 
   isValid () {
