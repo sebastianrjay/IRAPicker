@@ -9,7 +9,7 @@ import Footer from './partials/footer'
 import Nav from './partials/nav'
 
 const headers = {
-  1: 'Step 1: What is your IRA savings goal and income this year?',
+  1: 'Step 1: What are your IRA savings goal and income this year?',
   2: 'Step 2: What is your current basic tax info?',
   3: 'Step 3: What are your retirement plans?',
   4: 'Results',
