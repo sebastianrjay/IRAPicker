@@ -11,15 +11,11 @@ class BaseForm extends Component {
   }
 
   formData () {
-    return get(this.props, `${this.formName()}.values`) || {} 
+    return get(this.props, `${this.props.form}.values`) || {} 
   }
 
   formErrors () {
-    return get(this.props, `${this.formName()}.syncErrors`) || {}
-  }
-
-  formName () {
-    return camelCase(this.constructor.name.replace(/Form/, ''))
+    return get(this.props, `${this.props.form}.syncErrors`) || {}
   }
 
   hasNoErrors () {
