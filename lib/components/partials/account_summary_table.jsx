@@ -54,9 +54,9 @@ const AccountSummaryTable = (props) => {
       <tbody>
         <tr>
           <th scope="row">Roth IRA</th>
-          <td>N/A</td>
+          <td>N/A*</td>
           <td>{toDollarString(iraAccountBalance)}</td>
-          <td>N/A</td>
+          <td>N/A*</td>
           <td>{rothIRAYears.toFixed(2)}</td>
         </tr>
         <tr>
