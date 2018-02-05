@@ -23,6 +23,7 @@ class CurrentTaxesForm extends BaseForm {
   }
 
   render () {
+    const { isLoading } = this.formData()
     const taxFilingStatus = this.formData().taxFilingStatus || ''
     const isMarried = taxFilingStatus.match(/Married/)
     return (
@@ -51,7 +52,7 @@ class CurrentTaxesForm extends BaseForm {
           </label>
         </div>
         <Field
-          component={renderFormField} 
+          component={renderFormField}
           label="Enter your current U.S. ZIP code, for income tax estimation purposes." 
           name="zipCode" 
           type="text"
@@ -59,6 +60,7 @@ class CurrentTaxesForm extends BaseForm {
         <Field
           component={renderFormField}
           disabled
+          isLoading={isLoading}
           label="City"
           name="city"
           type="text"
@@ -66,6 +68,7 @@ class CurrentTaxesForm extends BaseForm {
         <Field
           component={renderFormField}
           disabled
+          isLoading={isLoading}
           label="State"
           name="state"
           type="text"
