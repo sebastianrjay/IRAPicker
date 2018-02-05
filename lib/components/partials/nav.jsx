@@ -9,7 +9,7 @@ const Nav = (props) => (
           <span className="logo-text">IRA Picker</span>
         </span>
         <span className="navbar-text float-right">
-          Find the right IRA for you.
+          Choose the best IRA.
         </span>
       </div>
     </div>

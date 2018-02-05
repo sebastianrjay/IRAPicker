@@ -72,7 +72,7 @@ class CurrentTaxesForm extends BaseForm {
         />
         {
           this.showTaxesPaid()
-            ? <p>{this.taxesPaidCopy()}</p>
+            ? <p className="small">{this.taxesPaidCopy()}</p>
             : ''
         }
       </form>

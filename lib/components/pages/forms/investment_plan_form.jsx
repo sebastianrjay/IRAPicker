@@ -44,7 +44,7 @@ class InvestmentPlanForm extends BaseForm {
           type="text"
           validate={validateNumber({ field: 'annualIncome', isCurrency: true })}
         />
-        <p>
+        <p className="small">
           Click <a
             target="_blank"
             href="http://money.cnn.com/tmp/networth2.html"
