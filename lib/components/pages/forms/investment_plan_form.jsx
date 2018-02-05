@@ -76,10 +76,6 @@ class InvestmentPlanForm extends BaseForm {
 InvestmentPlanForm = reduxForm({
   destroyOnUnmount: false,
   form: 'investmentPlan',
-  initialValues: {
-    has401k: false,
-    spouseHas401k: false,
-  },
 })(InvestmentPlanForm)
 
 export default connect(mapFormStateToProps, mapFormDispatchToProps)(InvestmentPlanForm)

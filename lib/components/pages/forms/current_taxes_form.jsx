@@ -101,6 +101,8 @@ CurrentTaxesForm = reduxForm({
   destroyOnUnmount: false,
   form: 'currentTaxes',
   initialValues: {
+    has401k: false,
+    spouseHas401k: false,
     taxFilingStatus: TAX_FILING_STATUSES[0],
   },
 })(CurrentTaxesForm)

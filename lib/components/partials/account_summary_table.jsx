@@ -22,6 +22,7 @@ const AccountSummaryTable = (props) => {
     Number(props.retirementAge) + (tradIRAYears === Infinity ? 0 : tradIRAYears)
   const nonIRAAccountProps = merge({}, props, {
     contribution: taxRefund,
+    iraContribution: 0,
     retirementAge: nonIRAFirstWithdrawalAge,
   })
   const nonIRABalance = accountBalanceAtRetirement(nonIRAAccountProps)
