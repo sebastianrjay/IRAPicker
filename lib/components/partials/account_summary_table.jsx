@@ -5,6 +5,7 @@ import { toDollarString } from '../../util/page_helpers'
 import {
   accountBalanceAtRetirement,
   beforeCapitalGainsTaxRetirementIncome,
+  nonIRAFirstWithdrawalAge,
   traditionalIRATaxRefund,
   traditionalIRAWithdrawal,
   yearsOfRetirementIncome,
@@ -18,12 +19,12 @@ const AccountSummaryTable = (props) => {
   const tradIRAProps =
     merge({}, iraProps, { retirementIncome: traditionalIRAWithdrawal(props) })
   const tradIRAYears = yearsOfRetirementIncome(tradIRAProps)
-  const nonIRAFirstWithdrawalAge =
-    Number(props.retirementAge) + (tradIRAYears === Infinity ? 0 : tradIRAYears)
+  const nonIRAWithdrawalAge=
+    nonIRAFirstWithdrawalAge(props.retirementAge, taxRefund, tradIRAYears)
   const nonIRAAccountProps = merge({}, props, {
     contribution: taxRefund,
     iraContribution: 0,
-    retirementAge: nonIRAFirstWithdrawalAge,
+    retirementAge: nonIRAWithdrawalAge
   })
   const nonIRABalance = accountBalanceAtRetirement(nonIRAAccountProps)
   const nonIRAWithdrawalProps = merge({}, {
@@ -41,10 +42,10 @@ const AccountSummaryTable = (props) => {
           <th>IRA Account Balance at Retirement</th>
           <th>
             {
-              nonIRAFirstWithdrawalAge == props.retirementAge ?
+              nonIRAWithdrawalAge == props.retirementAge ?
                 'Non-IRA Account Balance at Retirement'
               : `Non-IRA Account Balance at Age 
-                ${Math.floor(nonIRAFirstWithdrawalAge)}, on First Withdrawal`
+                ${Math.floor(nonIRAWithdrawalAge)},on First Withdrawal`
             }
           </th>
           <th>Total Years of Retirement Income</th>
