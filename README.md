@@ -5,4 +5,4 @@ Not sure whether to choose a traditional or Roth IRA this year?
 
 # Copyright
 
-Copyright © 2018 Sebastian R. Jay
+© 2018 Sebastian R. Jay

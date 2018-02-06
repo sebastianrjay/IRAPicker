@@ -32,42 +32,45 @@ const AccountSummaryTable = (props) => {
     retirementIncome: beforeCapitalGainsTaxRetirementIncome(props),
   })
   const nonIRAYears = yearsOfRetirementIncome(nonIRAWithdrawalProps)
+  const winner = rothIRAYears > tradIRAYears + nonIRAYears ? 'roth' : 'trad'
 
   return (
-    <table className="table table-bordered">
-      <thead>
-        <tr>
-          <th>IRA Choice</th>
-          <th>Annual IRA Contribution Tax Refund</th>
-          <th>IRA Account Balance at Retirement</th>
-          <th>
-            {
-              nonIRAWithdrawalAge == props.retirementAge ?
-                'Non-IRA Account Balance at Retirement'
-              : `Non-IRA Account Balance at Age 
-                ${Math.floor(nonIRAWithdrawalAge)},on First Withdrawal`
-            }
-          </th>
-          <th>Total Years of Retirement Income</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Roth IRA</th>
-          <td>N/A*</td>
-          <td>{toDollarString(iraAccountBalance)}</td>
-          <td>N/A*</td>
-          <td>{rothIRAYears.toFixed(2)}</td>
-        </tr>
-        <tr>
-          <th scope="row">Traditional IRA</th>
-          <td>{toDollarString(taxRefund)}</td>
-          <td>{toDollarString(iraAccountBalance)}</td>
-          <td>{toDollarString(nonIRABalance)}</td>
-          <td>{(tradIRAYears + nonIRAYears).toFixed(2)}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div className="table-responsive">
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th>IRA Choice</th>
+            <th>Total Years of Retirement Income</th>
+            <th>Annual IRA Contribution Tax Refund</th>
+            <th>IRA Account Balance at Retirement</th>
+            <th>
+              {
+                nonIRAWithdrawalAge == props.retirementAge ?
+                  'Non-IRA Account Balance at Retirement'
+                : `Non-IRA Account Balance at Age 
+                  ${Math.floor(nonIRAWithdrawalAge)},on First Withdrawal`
+              }
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className={winner === 'roth' ? 'table-success' : null}>
+            <th scope="row">Roth IRA</th>
+            <td>{rothIRAYears.toFixed(2)}</td>
+            <td>N/A*</td>
+            <td>{toDollarString(iraAccountBalance)}</td>
+            <td>N/A*</td>
+          </tr>
+          <tr className={winner === 'trad' ? 'table-success' : null}>
+            <th scope="row">Traditional IRA</th>
+            <td>{(tradIRAYears + nonIRAYears).toFixed(2)}</td>
+            <td>{toDollarString(taxRefund)}</td>
+            <td>{toDollarString(iraAccountBalance)}</td>
+            <td>{toDollarString(nonIRABalance)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   )
 }
 
