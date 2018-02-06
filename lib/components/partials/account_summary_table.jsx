@@ -12,7 +12,6 @@ import {
 } from '../../util/tax_calculations'
 
 const AccountSummaryTable = (props) => {
-  console.log('AccountSummaryTable retirementTaxFilingStatus', props.retirementTaxFilingStatus)
   const iraAccountBalance = accountBalanceAtRetirement(props)
   const taxRefund = traditionalIRATaxRefund(props)
   const iraProps = { accountBalance: iraAccountBalance }
@@ -49,7 +48,7 @@ const AccountSummaryTable = (props) => {
                 nonIRAWithdrawalAge == props.retirementAge ?
                   'Non-IRA Account Balance at Retirement'
                 : `Non-IRA Account Balance at Age 
-                  ${Math.floor(nonIRAWithdrawalAge)},on First Withdrawal`
+                  ${Math.floor(nonIRAWithdrawalAge)}, on First Withdrawal`
               }
             </th>
           </tr>

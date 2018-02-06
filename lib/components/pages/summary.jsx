@@ -15,7 +15,6 @@ import {
 import AccountSummaryTable from '../partials/account_summary_table'
 
 const Summary = (props) => {
-  console.log('Summary retirementTaxFilingStatus', props.retirementTaxFilingStatus)
   if (!props.annualIncome || !props.retirementIncome) return null
 
   return (
@@ -32,7 +31,7 @@ const Summary = (props) => {
             ${toDollarString(props.retirementIncome)}, you will need to annually 
             withdraw ${toDollarString(props.retirementIncome)} from your Roth 
             IRA, ${toDollarString(traditionalIRAWithdrawal(props))} from your 
-            traditional IRA, or 
+            traditional IRA, or about 
             ${toDollarString(beforeCapitalGainsTaxRetirementIncome(props))} 
             from any non-tax advantaged retirement account on which capital 
             gains tax is payable.**`
