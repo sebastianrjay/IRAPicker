@@ -10,6 +10,11 @@ import {
   traditionalIRAWithdrawal,
   yearsOfRetirementIncome,
 } from '../../util/tax_calculations'
+import {
+  ROTH_IRA_BACKDOOR_URL,
+  ROTH_IRA_LIMITS_URL,
+  ROTH_IRA_PHASE_OUT_INCOME,
+} from '../../constants/tax_data'
 
 const AccountSummaryTable = (props) => {
   const iraAccountBalance = accountBalanceAtRetirement(props)
@@ -39,7 +44,18 @@ const AccountSummaryTable = (props) => {
       <p>
         A <span className="font-weight-bold">{winner} IRA</span> will give you 
         the most retirement income, if you invest in the account annually with 
-        your current income, location, tax filing status and retirement plans.
+        your current income, location, tax filing status and retirement plans. 
+        {
+          winner === 'Roth' && props.annualIncome > ROTH_IRA_PHASE_OUT_INCOME
+            ? <span>&nbsp;Because your income is above&nbsp;
+              {toDollarString(ROTH_IRA_PHASE_OUT_INCOME)}, you may need a&nbsp;
+              <a href={ROTH_IRA_BACKDOOR_URL} target="_blank">backdoor Roth 
+              IRA</a> in order to avoid <a
+                href={ROTH_IRA_LIMITS_URL}
+                target="_blank"
+              >Roth IRA contribution limits</a>.</span>
+            : null
+        }
       </p>
       <div className="table-responsive">
         <table className="table table-bordered">
