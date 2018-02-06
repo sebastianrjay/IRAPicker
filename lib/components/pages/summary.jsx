@@ -15,6 +15,7 @@ import {
 import AccountSummaryTable from '../partials/account_summary_table'
 
 const Summary = (props) => {
+  console.log('Summary retirementTaxFilingStatus', props.retirementTaxFilingStatus)
   if (!props.annualIncome || !props.retirementIncome) return null
 
   return (

@@ -2,20 +2,25 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import BaseForm from '../../partials/base_form'
-import { STATES } from '../../../constants/tax_data'
+import { STATES, TAX_FILING_STATUSES } from '../../../constants/tax_data'
 import {
   mapFormDispatchToProps,
   mapFormStateToProps,
-  renderFormField,
+  renderInputField,
   renderSelectField,
 } from '../../../util/form_helpers'
 import { validateNumber } from '../../../util/validators'
 
 class RetirementTaxesForm extends BaseForm {
   isValid () {
-    const { retirementAge, retirementIncome, retirementState } = this.formData()
-    const noErrors = this.hasNoErrors()
-    return retirementAge && retirementIncome && retirementState && noErrors
+    const {
+      retirementAge,
+      retirementIncome,
+      retirementState,
+      retirementTaxFilingStatus,
+    } = this.formData()
+    return retirementAge && retirementIncome && retirementState && 
+      retirementTaxFilingStatus && this.hasNoErrors()
   }
 
   render () {
@@ -31,14 +36,20 @@ class RetirementTaxesForm extends BaseForm {
           options={STATES}
         />
         <Field
-          component={renderFormField}
+          component={renderInputField}
           label="Planned Retirement Age"
           name="retirementAge"
           type="text"
           validate={validateNumber({ field: 'retirementAge' })}
         />
         <Field
-          component={renderFormField}
+          component={renderSelectField}
+          label="Anticipated Retirement Tax Filing Status"
+          name="retirementTaxFilingStatus"
+          options={TAX_FILING_STATUSES}
+        />
+        <Field
+          component={renderInputField}
           label="Desired Annual After-Tax Retirement Income"
           name="retirementIncome" 
           type="text"
@@ -52,6 +63,9 @@ class RetirementTaxesForm extends BaseForm {
 RetirementTaxesForm = reduxForm({
   destroyOnUnmount: false,
   form: 'retirementTaxes',
+  initialValues: {
+    retirementTaxFilingStatus: TAX_FILING_STATUSES[0],
+  },
 })(RetirementTaxesForm)
 
 export default connect(mapFormStateToProps, mapFormDispatchToProps)(RetirementTaxesForm)

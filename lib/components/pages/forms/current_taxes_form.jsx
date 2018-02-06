@@ -6,8 +6,9 @@ import BaseForm from '../../partials/base_form'
 import {
   mapFormStateToProps,
   renderCheckboxField,
-  renderFormField,
+  renderInputField,
   renderSelectField,
+  renderSpinnerInputField,
 } from '../../../util/form_helpers'
 import { toDollarString } from '../../../util/page_helpers'
 import {
@@ -52,13 +53,13 @@ class CurrentTaxesForm extends BaseForm {
           </label>
         </div>
         <Field
-          component={renderFormField}
+          component={renderInputField}
           label="Enter your current U.S. ZIP code, for income tax estimation purposes." 
           name="zipCode" 
           type="text"
         />
         <Field
-          component={renderFormField}
+          component={renderSpinnerInputField}
           disabled
           isLoading={isLoading}
           label="City"
@@ -66,7 +67,7 @@ class CurrentTaxesForm extends BaseForm {
           type="text"
         />
         <Field
-          component={renderFormField}
+          component={renderSpinnerInputField}
           disabled
           isLoading={isLoading}
           label="State"

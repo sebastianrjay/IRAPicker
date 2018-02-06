@@ -7,7 +7,7 @@ import {
   mapFormDispatchToProps,
   mapFormStateToProps,
   renderCheckboxField,
-  renderFormField,
+  renderInputField,
 } from '../../../util/form_helpers'
 import { toDollarString } from '../../../util/page_helpers'
 import {
@@ -38,7 +38,7 @@ class InvestmentPlanForm extends BaseForm {
         onKeyUp={() => this.props.setFormValidity(this.isValid())}
       >
         <Field
-          component={renderFormField}
+          component={renderInputField}
           label="Current Annual Modified Adjusted Gross Income"
           name="annualIncome"
           type="text"
@@ -52,14 +52,14 @@ class InvestmentPlanForm extends BaseForm {
           to leave the IRA deduction field blank.
         </p>
         <Field
-          component={renderFormField}
+          component={renderInputField}
           label="Current Age"
           name="currentAge"
           type="text"
           validate={validateNumber({ field: 'currentAge' })}
         />
         <Field
-          component={renderFormField}
+          component={renderInputField}
           label={contributionLabel}
           name="iraContribution"
           type="text" 
