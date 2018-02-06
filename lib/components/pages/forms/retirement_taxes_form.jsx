@@ -67,6 +67,7 @@ RetirementTaxesForm = reduxForm({
   form: 'retirementTaxes',
   initialValues: {
     retirementIncome: 0,
+    retirementState: STATES[0],
     retirementTaxFilingStatus: TAX_FILING_STATUSES[0],
   },
 })(RetirementTaxesForm)

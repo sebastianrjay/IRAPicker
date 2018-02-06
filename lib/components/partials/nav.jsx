@@ -6,7 +6,7 @@ const Nav = (props) => (
       <div className="container-fluid">
         <span className="navbar-brand">
           <img className="logo__img" src="assets/piggy-bank-logo.png"></img>
-          <span className="logo__text">IRA Picker</span>
+          <span className="font-weight-bold logo__text">IRA Picker</span>
         </span>
         <span className="navbar-text float-right">
           Choose the best IRA.

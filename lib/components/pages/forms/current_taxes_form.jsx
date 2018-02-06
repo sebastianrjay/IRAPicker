@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form'
 import BaseForm from '../../partials/base_form'
 import {
   mapFormStateToProps,
+  mapFormDispatchToProps,
   renderCheckboxField,
   renderInputField,
   renderSelectField,
@@ -18,13 +19,17 @@ import {
 import fetchZipCodeData from '../../../actions/fetch_zip_code_data'
 import { TAX_FILING_STATUSES } from '../../../constants/tax_data'
 
+// Do not validate on blur
+const shouldAsyncValidate = ({ blurredField }) => !blurredField
+
 class CurrentTaxesForm extends BaseForm {
-  componentWillMount () {
-    this.props.asyncValidate() // Enable immediate page switch if form is valid
+  isValid() {
+    const { city, state, zipCode } = this.formData()
+    return city && state && zipCode && this.hasNoErrors()
   }
 
   render () {
-    const { isLoading } = this.formData()
+    const { isLoading, state } = this.formData()
     const taxFilingStatus = this.formData().taxFilingStatus || ''
     const isMarried = taxFilingStatus.match(/Married/)
     return (
@@ -55,7 +60,7 @@ class CurrentTaxesForm extends BaseForm {
         <Field
           component={renderInputField}
           label="Enter your current U.S. ZIP code, for income tax estimation purposes." 
-          name="zipCode" 
+          name="zipCode"
           type="text"
         />
         <Field
@@ -75,16 +80,10 @@ class CurrentTaxesForm extends BaseForm {
           type="text"
         />
         {
-          this.showTaxesPaid()
-            ? <p className="small">{this.taxesPaidCopy()}</p>
-            : null
+          state ? <p className="small">{this.taxesPaidCopy()}</p> : null
         }
       </form>
     )
-  }
-
-  showTaxesPaid () {
-    return this.formData().zipCode && this.formData().state
   }
 
   taxesPaidCopy () {
@@ -101,7 +100,6 @@ class CurrentTaxesForm extends BaseForm {
 }
 
 CurrentTaxesForm = reduxForm({
-  asyncBlurFields: ['zipCode'],
   asyncValidate: fetchZipCodeData,
   destroyOnUnmount: false,
   form: 'currentTaxes',
@@ -110,6 +108,7 @@ CurrentTaxesForm = reduxForm({
     spouseHas401k: false,
     taxFilingStatus: TAX_FILING_STATUSES[0],
   },
+  shouldAsyncValidate,
 })(CurrentTaxesForm)
 
-export default connect(mapFormStateToProps)(CurrentTaxesForm)
+export default connect(mapFormStateToProps, mapFormDispatchToProps)(CurrentTaxesForm)
