@@ -8,7 +8,7 @@ const Footer = (props) => (
       ><span className="text-info">source code</span></a> on Github
     </div>
     <div className="container">
-      © 2018 Sebastian R. Jay
+      © 2018 Sebastian Jay
     </div>
   </footer>
 )

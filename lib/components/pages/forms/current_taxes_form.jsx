@@ -92,10 +92,11 @@ class CurrentTaxesForm extends BaseForm {
     const { state, taxFilingStatus } = this.formData()
     const netIncome = afterIncomeTaxIncome({ annualIncome, state, taxFilingStatus })
     const taxPercentage = combinedTaxPercentage(annualIncome, netIncome)
-    return `You will pay approximately ${taxPercentage}% of your income in taxes
-      this year, including Medicare and Social Security contributions. You will 
-      earn around ${toDollarString(netIncome)} after taxes, excluding your tax 
-      refund from any traditional IRA contribution(s).`
+    return `You will pay approximately ${taxPercentage}% of your income in 
+      federal and state taxes this year, including Medicare and Social Security 
+      contributions and excluding any municipal or county taxes. You will earn 
+      around ${toDollarString(netIncome)} after taxes, excluding your tax refund 
+      from any traditional IRA contribution(s).`
   }
 }
 
