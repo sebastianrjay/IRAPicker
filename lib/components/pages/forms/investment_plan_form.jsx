@@ -6,7 +6,9 @@ import { iraContributionLimit } from '../../../util/tax_calculations'
 import {
   mapFormDispatchToProps,
   mapFormStateToProps,
+  normalizeDollarAmount,
   renderCheckboxField,
+  renderCurrencyField,
   renderInputField,
 } from '../../../util/form_helpers'
 import { toDollarString } from '../../../util/page_helpers'
@@ -24,7 +26,8 @@ class InvestmentPlanForm extends BaseForm {
 
   isValid () {
     const { annualIncome, currentAge, iraContribution } = this.formData()
-    return annualIncome && currentAge && iraContribution && this.hasNoErrors()
+    return (annualIncome || annualIncome === 0) && currentAge && 
+      (iraContribution || iraContribution === 0) && this.hasNoErrors()
   }
 
   render () {
@@ -38,11 +41,11 @@ class InvestmentPlanForm extends BaseForm {
         onKeyUp={() => this.props.setFormValidity(this.isValid())}
       >
         <Field
-          component={renderInputField}
+          component={renderCurrencyField}
           label="Current Annual Modified Adjusted Gross Income"
           name="annualIncome"
+          normalize={normalizeDollarAmount}
           type="text"
-          validate={validateNumber({ field: 'annualIncome', isCurrency: true })}
         />
         <p className="small">
           Click <a
@@ -59,14 +62,12 @@ class InvestmentPlanForm extends BaseForm {
           validate={validateNumber({ field: 'currentAge' })}
         />
         <Field
-          component={renderInputField}
+          component={renderCurrencyField}
           label={contributionLabel}
           name="iraContribution"
+          normalize={normalizeDollarAmount}
           type="text" 
-          validate={[
-            validateNumber({ field: 'iraContribution' }),
-            validateIRAContribution(contributionLimit)
-          ]}
+          validate={validateIRAContribution(contributionLimit)}
         />
       </form>
     )
@@ -76,6 +77,10 @@ class InvestmentPlanForm extends BaseForm {
 InvestmentPlanForm = reduxForm({
   destroyOnUnmount: false,
   form: 'investmentPlan',
+  initialValues: {
+    annualIncome: 0,
+    iraContribution: 0,
+  }
 })(InvestmentPlanForm)
 
 export default connect(mapFormStateToProps, mapFormDispatchToProps)(InvestmentPlanForm)

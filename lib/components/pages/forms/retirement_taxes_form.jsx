@@ -6,6 +6,8 @@ import { STATES, TAX_FILING_STATUSES } from '../../../constants/tax_data'
 import {
   mapFormDispatchToProps,
   mapFormStateToProps,
+  normalizeDollarAmount,
+  renderCurrencyField,
   renderInputField,
   renderSelectField,
 } from '../../../util/form_helpers'
@@ -19,8 +21,8 @@ class RetirementTaxesForm extends BaseForm {
       retirementState,
       retirementTaxFilingStatus,
     } = this.formData()
-    return retirementAge && retirementIncome && retirementState && 
-      retirementTaxFilingStatus && this.hasNoErrors()
+    return retirementAge && (retirementIncome || retirementIncome === 0) && 
+      retirementState && retirementTaxFilingStatus && this.hasNoErrors()
   }
 
   render () {
@@ -49,11 +51,11 @@ class RetirementTaxesForm extends BaseForm {
           options={TAX_FILING_STATUSES}
         />
         <Field
-          component={renderInputField}
+          component={renderCurrencyField}
           label="Desired Annual After-Tax Retirement Income"
-          name="retirementIncome" 
+          name="retirementIncome"
+          normalize={normalizeDollarAmount}
           type="text"
-          validate={validateNumber({ field: 'retirementIncome', isCurrency: true })}
         />
       </form>
     )
@@ -64,6 +66,7 @@ RetirementTaxesForm = reduxForm({
   destroyOnUnmount: false,
   form: 'retirementTaxes',
   initialValues: {
+    retirementIncome: 0,
     retirementTaxFilingStatus: TAX_FILING_STATUSES[0],
   },
 })(RetirementTaxesForm)
