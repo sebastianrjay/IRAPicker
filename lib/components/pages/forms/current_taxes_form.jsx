@@ -79,9 +79,7 @@ class CurrentTaxesForm extends BaseForm {
           name="state"
           type="text"
         />
-        {
-          state ? <p className="small">{this.taxesPaidCopy()}</p> : null
-        }
+        {state ? <p className="small">{this.taxesPaidCopy()}</p> : null}
       </form>
     )
   }

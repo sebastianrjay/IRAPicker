@@ -4,26 +4,31 @@ import { CHANGE_PAGE } from '../constants/events'
 import CurrentTaxesForm from './pages/forms/current_taxes_form'
 import InvestmentPlanForm from './pages/forms/investment_plan_form'
 import RetirementTaxesForm from './pages/forms/retirement_taxes_form'
+import Intro from './pages/intro'
 import Summary from './pages/summary'
 import Footer from './partials/footer'
 import Nav from './partials/nav'
 
 const headers = {
-  1: 'Step 1: What are your IRA savings goal and income this year?',
-  2: 'Step 2: What is your current basic tax info?',
-  3: 'Step 3: What are your retirement plans?',
-  4: 'Results',
+  1: 'IRA Picker',
+  2: 'Step 1: What are your IRA savings goal and income this year?',
+  3: 'Step 2: What is your current basic tax info?',
+  4: 'Step 3: What are your retirement plans?',
+  5: 'Results',
 }
 
+const nextButtonText = (page) => page === 1 ? 'Get Started' : 'Next'
+
 const pages = {
-  1: <InvestmentPlanForm/>,
-  2: <CurrentTaxesForm/>,
-  3: <RetirementTaxesForm/>,
-  4: <Summary/>,
+  1: <Intro/>,
+  2: <InvestmentPlanForm/>,
+  3: <CurrentTaxesForm/>,
+  4: <RetirementTaxesForm/>,
+  5: <Summary/>,
 }
 
 const FIRST_PAGE = 1
-const LAST_PAGE = 4
+const LAST_PAGE = 5
 
 const PageContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
   <div>
@@ -45,10 +50,14 @@ const PageContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
           currentPage < LAST_PAGE && 
           <button
             className="btn btn-lg btn-primary float-right"
-            disabled={!isCurrentFormValid}
-            onClick={() => changePage(currentPage + 1, false)}
+            disabled={currentPage !== FIRST_PAGE && !isCurrentFormValid}
+            onClick={() => {
+              window.scrollTo(0, 0)
+              changePage(currentPage + 1, false)
+            }}
           >
-            Next&nbsp;&nbsp;<i className="fa fa-angle-right"></i>
+            {nextButtonText(currentPage)}
+            &nbsp;&nbsp;<i className="fa fa-angle-right"></i>
           </button>
         }
       </div>

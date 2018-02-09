@@ -11,7 +11,7 @@ import {
 import {
   MINIMUM_DISTRIBUTION_URL,
   TRADITIONAL_IRA_WITHDRAWAL_RULES_URL,
-} from '../../constants/tax_data'
+} from '../../constants/external_links'
 import AccountSummaryTable from '../partials/account_summary_table'
 
 const Summary = (props) => (
@@ -20,7 +20,8 @@ const Summary = (props) => (
       <AccountSummaryTable {...props}/>
       <p>
         <span className="font-weight-bold">NOTE:</span> The best IRA account 
-        for you is the one that yields the most years of retirement income.
+        for you is the one that yields the most years of your desired after-tax 
+        retirement income.
       </p>
       <p>
         {

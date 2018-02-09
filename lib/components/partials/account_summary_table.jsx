@@ -13,8 +13,9 @@ import {
 import {
   ROTH_IRA_BACKDOOR_URL,
   ROTH_IRA_LIMITS_URL,
-  ROTH_IRA_PHASE_OUT_INCOME,
-} from '../../constants/tax_data'
+  TRADITIONAL_IRA_DEDUCTION_LIMITS_URL,
+} from '../../constants/external_links'
+import { ROTH_IRA_PHASE_OUT_INCOME } from '../../constants/tax_data'
 
 const AccountSummaryTable = (props) => {
   const iraAccountBalance = accountBalanceAtRetirement(props)
@@ -42,9 +43,9 @@ const AccountSummaryTable = (props) => {
   return (
     <div>
       <p>
-        A <span className="font-weight-bold">{winner} IRA</span> will give you 
-        the most retirement income, if you invest in the account annually with 
-        your current income, location, tax filing status and retirement plans. 
+        Investing in a <span className="font-weight-bold">{winner} IRA
+        </span> will give you the most retirement income, based on your current 
+        income, location, tax filing status and retirement plans. 
         {
           winner === 'Roth' && props.annualIncome > ROTH_IRA_PHASE_OUT_INCOME
             ? <span>&nbsp;Because your income is above&nbsp;
@@ -55,6 +56,16 @@ const AccountSummaryTable = (props) => {
                 target="_blank"
               >Roth IRA contribution limits</a>.</span>
             : null
+        }
+        {
+          taxRefund === 0 ?
+            <span>
+              &nbsp;You are ineligible for a traditional IRA tax deduction (and 
+              tax refund) because your annual Modified Adjusted Gross Income 
+              is <a href={TRADITIONAL_IRA_DEDUCTION_LIMITS_URL} target="_blank">
+              too high</a>.
+            </span>
+          : null
         }
       </p>
       <div className="table-responsive">

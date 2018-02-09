@@ -1,4 +1,5 @@
 bundle.css
 bundle.js
 bundle.js.map
+deploy.sh
 node_modules/
