@@ -6,8 +6,8 @@
   "repository": "https://github.com/sebastianrjay/IRAPicker.git",
   "author": "Sebastian Jay (sebastianrjay)",
   "scripts": {
-    "webpack-dev": "NODE_ENV=development && webpack-dev-server --colors --progress",
-    "webpack-prod": "NODE_ENV=production && webpack --colors -p --progress"
+    "dev": "NODE_ENV=development && webpack-dev-server --colors --progress",
+    "prod": "NODE_ENV=production && webpack --colors -p --progress"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

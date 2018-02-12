@@ -9,7 +9,7 @@ import Summary from './pages/summary'
 import Footer from './partials/footer'
 import Nav from './partials/nav'
 
-const headers = {
+const HEADERS = {
   1: 'IRA Picker',
   2: 'Step 1: What are your IRA savings goal and income this year?',
   3: 'Step 2: What is your current basic tax info?',
@@ -17,9 +17,14 @@ const headers = {
   5: 'Results',
 }
 
-const nextButtonText = (page) => page === 1 ? 'Get Started' : 'Next'
+const NEXT_BUTTON_LABELS = {
+  1: 'Get Started',
+  4: 'Results',
+}
 
-const pages = {
+const nextButtonLabel = (page) => NEXT_BUTTON_LABELS[page] || 'Next'
+
+const PAGES = {
   1: <Intro/>,
   2: <InvestmentPlanForm/>,
   3: <CurrentTaxesForm/>,
@@ -35,30 +40,30 @@ const PageContainer = ({ changePage, currentPage, isCurrentFormValid }) => (
     <Nav/>
     <div className="row mx-3 my-5 py-5">
       <div className="col-md-8 offset-md-2 col-sm-12">
-        <h2 className="mb-5">{headers[currentPage]}</h2>
-        {pages[currentPage]}
+        <h2 className="mb-5">{HEADERS[currentPage]}</h2>
+        {PAGES[currentPage]}
         {
           currentPage > FIRST_PAGE &&
-          <button
-            className="btn btn-lg btn-secondary float-left"
-            onClick={() => changePage(currentPage - 1, true)}
-          >
-            <i className="fa fa-angle-left"></i>&nbsp;&nbsp;Back
-          </button>
+            <button
+              className="btn btn-lg btn-secondary float-left"
+              onClick={() => changePage(currentPage - 1, true)}
+            >
+              <i className="fa fa-angle-left"></i>&nbsp;&nbsp;Back
+            </button>
         }
         {
           currentPage < LAST_PAGE && 
-          <button
-            className="btn btn-lg btn-primary float-right"
-            disabled={currentPage !== FIRST_PAGE && !isCurrentFormValid}
-            onClick={() => {
-              window.scrollTo(0, 0)
-              changePage(currentPage + 1, false)
-            }}
-          >
-            {nextButtonText(currentPage)}
-            &nbsp;&nbsp;<i className="fa fa-angle-right"></i>
-          </button>
+            <button
+              className="btn btn-lg btn-primary float-right"
+              disabled={currentPage !== FIRST_PAGE && !isCurrentFormValid}
+              onClick={() => {
+                window.scrollTo(0, 0)
+                changePage(currentPage + 1, false)
+              }}
+            >
+              {nextButtonLabel(currentPage)}
+              &nbsp;&nbsp;<i className="fa fa-angle-right"></i>
+            </button>
         }
       </div>
     </div>

@@ -12,6 +12,7 @@ import {
   MINIMUM_DISTRIBUTION_URL,
   TRADITIONAL_IRA_WITHDRAWAL_RULES_URL,
 } from '../../constants/external_links'
+import { ANNUAL_ROI_MULTIPLIER } from '../../constants/tax_data'
 import AccountSummaryTable from '../partials/account_summary_table'
 
 const Summary = (props) => (
@@ -32,7 +33,7 @@ const Summary = (props) => (
           traditional IRA, or about 
           ${toDollarString(beforeCapitalGainsTaxRetirementIncome(props))} 
           from any non-tax advantaged retirement account on which capital 
-          gains tax is payable.**`
+          gains tax is payable.***`
         }
       </p>
       <p>
@@ -44,7 +45,7 @@ const Summary = (props) => (
         } Traditional IRA withdrawals <a
           target="_blank"
           href={TRADITIONAL_IRA_WITHDRAWAL_RULES_URL}
-        > during retirement </a> are taxed like regular income.
+        > during retirement </a> are subject to standard income tax.
       </p>
       <p>
         <span className="font-weight-bold">Assumptions:</span>
@@ -65,11 +66,16 @@ const Summary = (props) => (
         </li>
       </ol>
       <p className="small">
-        *Roth IRA contributions are not tax-deductible and therefore never 
+        * Account balances are calculated assuming   
+        a {parseFloat(ANNUAL_ROI_MULTIPLIER * 100).toFixed(1)}% average annual 
+        return on investment (ROI).
+      </p>
+      <p className="small">
+        ** Roth IRA contributions are not tax-deductible and therefore never 
         yield a tax refund.
       </p>
       <p className="small">
-        **If using a traditional IRA, it may be possible to extend your years  
+        *** If using a traditional IRA, it may be possible to extend your years  
         of income by simultaneously withdrawing money from your IRA and 
         non-IRA accounts, and withdrawing little enough annual income from 
         your non-IRA account that you pay no federal capital gains tax.

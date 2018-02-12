@@ -75,13 +75,13 @@ const AccountSummaryTable = (props) => {
               <th>IRA Choice</th>
               <th>Total Years of Retirement Income</th>
               <th>Annual IRA Contribution Tax Refund</th>
-              <th>IRA Account Balance at Retirement</th>
+              <th>IRA Account Balance at Retirement*</th>
               <th>
                 {
                   nonIRAWithdrawalAge == props.retirementAge ?
-                    'Non-IRA Account Balance at Retirement'
+                    'Non-IRA Account Balance at Retirement*'
                   : `Non-IRA Account Balance at Age 
-                    ${Math.floor(nonIRAWithdrawalAge)}, on First Withdrawal`
+                    ${Math.floor(nonIRAWithdrawalAge)}, on First Withdrawal*`
                 }
               </th>
             </tr>
@@ -90,9 +90,9 @@ const AccountSummaryTable = (props) => {
             <tr className={winner === 'Roth' ? 'table-success' : null}>
               <th scope="row">Roth IRA</th>
               <td>{rothIRAYears.toFixed(2)}</td>
-              <td>N/A*</td>
+              <td>N/A**</td>
               <td>{toDollarString(iraAccountBalance)}</td>
-              <td>N/A*</td>
+              <td>N/A**</td>
             </tr>
             <tr className={winner === 'Traditional' ? 'table-success' : null}>
               <th scope="row">Traditional IRA</th>
