@@ -1,6 +1,7 @@
 import merge from 'lodash/merge'
 import React from 'react'
 import { connect } from 'react-redux'
+import FootnoteLink from './footnote_link'
 import { toDollarString } from '../../util/page_helpers'
 import {
   accountBalanceAtRetirement,
@@ -75,28 +76,30 @@ const AccountSummaryTable = (props) => {
               <th>IRA Choice</th>
               <th>Total Years of Retirement Income</th>
               <th>Annual IRA Contribution Tax Refund</th>
-              <th>IRA Account Balance at Retirement*</th>
+              <th>IRA Account Balance at Retirement<FootnoteLink to={1}/></th>
               <th>
                 {
                   nonIRAWithdrawalAge == props.retirementAge ?
-                    'Non-IRA Account Balance at Retirement*'
+                    'Non-IRA Account Balance at Retirement'
                   : `Non-IRA Account Balance at Age 
-                    ${Math.floor(nonIRAWithdrawalAge)}, on First Withdrawal*`
-                }
+                    ${Math.floor(nonIRAWithdrawalAge)}, on First Withdrawal`
+                }<FootnoteLink to={1}/>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr className={winner === 'Roth' ? 'table-success' : null}>
               <th scope="row">Roth IRA</th>
-              <td>{rothIRAYears.toFixed(2)}</td>
-              <td>N/A**</td>
+              <td>{rothIRAYears.toFixed(2)}<FootnoteLink to={2}/></td>
+              <td>N/A<FootnoteLink to={3}/></td>
               <td>{toDollarString(iraAccountBalance)}</td>
-              <td>N/A**</td>
+              <td>N/A<FootnoteLink to={3}/></td>
             </tr>
             <tr className={winner === 'Traditional' ? 'table-success' : null}>
               <th scope="row">Traditional IRA</th>
-              <td>{(tradIRAYears + nonIRAYears).toFixed(2)}</td>
+              <td>
+                {(tradIRAYears + nonIRAYears).toFixed(2)}<FootnoteLink to={2}/>
+              </td>
               <td>{toDollarString(taxRefund)}</td>
               <td>{toDollarString(iraAccountBalance)}</td>
               <td>{toDollarString(nonIRABalance)}</td>
