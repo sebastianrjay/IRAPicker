@@ -1,4 +1,3 @@
-import camelCase from 'lodash/camelCase'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'

@@ -48,9 +48,10 @@ const Summary = (props) => (
       <p>
         {
           `To earn a post-tax retirement income of 
-          ${toDollarString(props.retirementIncome)}, you will need to annually 
-          withdraw ${toDollarString(props.retirementIncome)} from your Roth 
-          IRA, ${toDollarString(traditionalIRAWithdrawal(props))} from your 
+          ${toDollarString(props.retirementIncome)} in ${props.retirementState}, 
+          you will need to annually withdraw 
+          ${toDollarString(props.retirementIncome)} from your Roth IRA, 
+          ${toDollarString(traditionalIRAWithdrawal(props))} from your 
           traditional IRA, or about 
           ${toDollarString(beforeCapitalGainsTaxRetirementIncome(props))} 
           from any non-tax advantaged retirement account on which capital 
