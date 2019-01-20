@@ -2,18 +2,37 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import BaseForm from '../../partials/base_form'
-import { STATES, TAX_FILING_STATUSES } from '../../../constants/tax_data'
 import {
+  ANNUAL_INFLATION,
+  STATES,
+  TAX_FILING_STATUSES,
+} from '../../../constants/tax_data'
+import {
+  mapAllFormStateToProps,
   mapFormDispatchToProps,
-  mapFormStateToProps,
-  normalizeDollarAmount,
+  normalizeNumber,
   renderCurrencyField,
   renderInputField,
   renderSelectField,
-} from '../../../util/form_helpers'
+  toDollarString,
+  toPercentage,
+} from '../../../util/page_helpers'
 import { validateNumber } from '../../../util/validators'
 
 class RetirementTaxesForm extends BaseForm {
+  inflationWarning () {
+    const { currentAge, retirementAge, retirementIncome } = this.formData()
+    const currentYear = Number((new Date()).getFullYear())
+    const elapsedYears = (retirementAge - currentAge)
+    const retirementYear = currentYear + elapsedYears
+    const incomeMinusInflation =
+      retirementIncome * Math.pow((1 - ANNUAL_INFLATION), elapsedYears)
+    return `With ${toPercentage(ANNUAL_INFLATION)} annual inflation, 
+      ${toDollarString(retirementIncome)} today will be worth 
+      ${toDollarString(incomeMinusInflation)} in today's dollars by 
+      ${retirementYear}, when you plan to retire.`
+  }
+
   isValid () {
     const {
       retirementAge,
@@ -26,6 +45,7 @@ class RetirementTaxesForm extends BaseForm {
   }
 
   render () {
+    const { retirementAge, retirementIncome } = this.formData()
     return (
       <form
         className="mb-5"
@@ -41,6 +61,7 @@ class RetirementTaxesForm extends BaseForm {
           component={renderInputField}
           label="Planned Retirement Age"
           name="retirementAge"
+          normalize={normalizeNumber}
           type="text"
           validate={validateNumber({ field: 'retirementAge' })}
         />
@@ -54,9 +75,13 @@ class RetirementTaxesForm extends BaseForm {
           component={renderCurrencyField}
           label="Desired Annual After-Tax Retirement Income"
           name="retirementIncome"
-          normalize={normalizeDollarAmount}
+          normalize={normalizeNumber}
           type="text"
         />
+        {
+          retirementAge && retirementIncome ? 
+            <p className="small">{this.inflationWarning()}</p> : null
+        }
       </form>
     )
   }
@@ -71,4 +96,4 @@ RetirementTaxesForm = reduxForm({
   },
 })(RetirementTaxesForm)
 
-export default connect(mapFormStateToProps, mapFormDispatchToProps)(RetirementTaxesForm)
+export default connect(mapAllFormStateToProps, mapFormDispatchToProps)(RetirementTaxesForm)

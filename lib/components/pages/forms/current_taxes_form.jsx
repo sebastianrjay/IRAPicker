@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import BaseForm from '../../partials/base_form'
 import {
-  mapFormStateToProps,
+  mapAllFormStateToProps,
   mapFormDispatchToProps,
   renderCheckboxField,
   renderInputField,
   renderSelectField,
   renderSpinnerInputField,
-} from '../../../util/form_helpers'
-import { toDollarString } from '../../../util/page_helpers'
+  toDollarString,
+} from '../../../util/page_helpers'
 import {
   afterIncomeTaxIncome,
   combinedTaxPercentage,
@@ -85,8 +85,7 @@ class CurrentTaxesForm extends BaseForm {
   }
 
   taxesPaidCopy () {
-    const annualIncome = get(this.props, 'investmentPlan.values.annualIncome')
-    const { state, taxFilingStatus } = this.formData()
+    const { annualIncome, state, taxFilingStatus } = this.formData()
     const netIncome = afterIncomeTaxIncome({ annualIncome, state, taxFilingStatus })
     const taxPercentage = combinedTaxPercentage(annualIncome, netIncome)
     return `You will pay approximately ${taxPercentage}% of your income in 
@@ -109,4 +108,4 @@ CurrentTaxesForm = reduxForm({
   shouldAsyncValidate,
 })(CurrentTaxesForm)
 
-export default connect(mapFormStateToProps, mapFormDispatchToProps)(CurrentTaxesForm)
+export default connect(mapAllFormStateToProps, mapFormDispatchToProps)(CurrentTaxesForm)

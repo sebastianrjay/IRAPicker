@@ -1,4 +1,3 @@
-import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 import React, { Component } from 'react'
 
@@ -10,11 +9,11 @@ class BaseForm extends Component {
   }
 
   formData () {
-    return get(this.props, `${this.props.form}.values`) || {} 
+    return this.props.formInput || {} 
   }
 
   formErrors () {
-    return get(this.props, `${this.props.form}.syncErrors`) || {}
+    return this.props.formErrors || {}
   }
 
   hasNoErrors () {

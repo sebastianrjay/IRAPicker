@@ -1,6 +1,5 @@
-bundle.css
-bundle.js
-bundle.js.map
+bundle.**
 config
 deploy.sh
 node_modules/
+yarn-error.log

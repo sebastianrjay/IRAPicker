@@ -4,14 +4,14 @@ import { Field, reduxForm } from 'redux-form'
 import BaseForm from '../../partials/base_form'
 import { iraContributionLimit } from '../../../util/tax_calculations'
 import {
+  mapAllFormStateToProps,
   mapFormDispatchToProps,
-  mapFormStateToProps,
-  normalizeDollarAmount,
+  normalizeNumber,
   renderCheckboxField,
   renderCurrencyField,
   renderInputField,
-} from '../../../util/form_helpers'
-import { toDollarString } from '../../../util/page_helpers'
+  toDollarString,
+} from '../../../util/page_helpers'
 import {
   validateIRAContribution,
   validateNumber,
@@ -44,7 +44,7 @@ class InvestmentPlanForm extends BaseForm {
           component={renderCurrencyField}
           label="Current Annual Modified Adjusted Gross Income"
           name="annualIncome"
-          normalize={normalizeDollarAmount}
+          normalize={normalizeNumber}
           type="text"
         />
         <p className="small">
@@ -58,6 +58,7 @@ class InvestmentPlanForm extends BaseForm {
           component={renderInputField}
           label="Current Age"
           name="currentAge"
+          normalize={normalizeNumber}
           type="text"
           validate={validateNumber({ field: 'currentAge' })}
         />
@@ -65,7 +66,7 @@ class InvestmentPlanForm extends BaseForm {
           component={renderCurrencyField}
           label={contributionLabel}
           name="iraContribution"
-          normalize={normalizeDollarAmount}
+          normalize={normalizeNumber}
           type="text" 
           validate={validateIRAContribution(contributionLimit)}
         />
@@ -79,4 +80,4 @@ InvestmentPlanForm = reduxForm({
   form: 'investmentPlan',
 })(InvestmentPlanForm)
 
-export default connect(mapFormStateToProps, mapFormDispatchToProps)(InvestmentPlanForm)
+export default connect(mapAllFormStateToProps, mapFormDispatchToProps)(InvestmentPlanForm)

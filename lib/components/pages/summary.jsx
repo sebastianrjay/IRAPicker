@@ -2,7 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import AccountSummaryTable from '../partials/account_summary_table'
 import FootnoteLink from '../partials/footnote_link'
-import { mapSummaryStateToProps, toDollarString } from '../../util/page_helpers'
+import {
+  mapAllFormStateToProps,
+  toDollarString,
+  toPercentage,
+} from '../../util/page_helpers'
 import {
   beforeCapitalGainsTaxRetirementIncome,
   beforeIncomeTaxRetirementIncome,
@@ -16,10 +20,10 @@ import {
 } from '../../constants/external_links'
 import { ANNUAL_ROI_MULTIPLIER } from '../../constants/tax_data'
 
-const Summary = (props) => (
+const Summary = ({ formInput }) => (
   <div className="row mb-5">
     <div className="col-md-12">
-      <AccountSummaryTable {...props}/>
+      <AccountSummaryTable {...formInput}/>
       <p>
         <span className="font-weight-bold">Assumptions</span>
       </p>
@@ -48,22 +52,23 @@ const Summary = (props) => (
       <p>
         {
           `To earn a post-tax retirement income of 
-          ${toDollarString(props.retirementIncome)} in ${props.retirementState}, 
+          ${toDollarString(formInput.retirementIncome)} in 
+          ${formInput.retirementState}, 
           you will need to annually withdraw 
-          ${toDollarString(props.retirementIncome)} from your Roth IRA, 
-          ${toDollarString(traditionalIRAWithdrawal(props))} from your 
+          ${toDollarString(formInput.retirementIncome)} from your Roth IRA, 
+          ${toDollarString(traditionalIRAWithdrawal(formInput))} from your 
           traditional IRA, or about 
-          ${toDollarString(beforeCapitalGainsTaxRetirementIncome(props))} 
-          from any non-tax advantaged retirement account on which capital 
-          gains tax is payable.`
+          ${toDollarString(beforeCapitalGainsTaxRetirementIncome(formInput))} 
+          from any non-tax advantaged retirement account on which capital gains 
+          tax is payable.`
         }<FootnoteLink to={4}/>
       </p>
       <p>
         {
           `With your current income, location and tax filing status, your 
           annual traditional IRA tax deduction and tax refund are 
-          ${toDollarString(traditionalIRATaxDeduction(props))} and 
-          ${toDollarString(traditionalIRATaxRefund(props))}, respectively.`
+          ${toDollarString(traditionalIRATaxDeduction(formInput))} and 
+          ${toDollarString(traditionalIRATaxRefund(formInput))}, respectively.`
         } Traditional IRA withdrawals <a
           target="_blank"
           href={TRADITIONAL_IRA_WITHDRAWAL_RULES_URL}
@@ -74,15 +79,13 @@ const Summary = (props) => (
       </p>
       <p id="footnote-1" className="small">
         1. Account balances are calculated assuming   
-        a {parseFloat(ANNUAL_ROI_MULTIPLIER * 100).toFixed(1)}% average annual 
-        return on investment (ROI).
+        a {toPercentage(ANNUAL_ROI_MULTIPLIER)} average annual return on 
+        investment (ROI).
       </p>
       <p id="footnote-2" className="small">
-        2. It is possible to have Infinity (∞) years of retirement income if the 
-        annual withdrawal is always less than or equal to the amount by which 
-        each account grows annually (which is assumed to be&nbsp;
-        {parseFloat(ANNUAL_ROI_MULTIPLIER * 100).toFixed(1)}%
-        of the balance at the beginning of each year).
+        2. It is possible to have Infinity (∞) years of retirement income if  
+        your total annual account withdrawal amount is always less than or equal 
+        to your total annual account balance growth.
       </p>
       <p id="footnote-3" className="small">
         3. Roth IRA contributions are not tax-deductible and therefore never 
@@ -98,4 +101,4 @@ const Summary = (props) => (
   </div>
 )
 
-export default connect(mapSummaryStateToProps)(Summary)
+export default connect(mapAllFormStateToProps)(Summary)
