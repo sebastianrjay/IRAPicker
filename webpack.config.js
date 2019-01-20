@@ -4,6 +4,7 @@ const devtool = process.env.NODE_ENV === 'production' ? false : 'source-map'
 module.exports = {
   devtool,
   entry: [
+    'whatwg-fetch',
     './lib/main.less',
     './lib/main.jsx',
   ],
