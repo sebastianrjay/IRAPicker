@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Footer = (props) => (
+const Footer = () => (
   <footer className="bg-secondary fixed-bottom footer p-3 small text-center text-white">
     <div className="container">
       View <a

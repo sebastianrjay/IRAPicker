@@ -14,7 +14,7 @@ const Intro = () => (
         >Roth</a> or <a
           href={TRADITIONAL_IRA_DESCRIPTION_URL}
           target="_blank"
-        >traditional</a> IRA this year? Calculate your best option here.
+        >traditional</a> IRA this year? Calculate your best option here, for free.
       </p>
     </div>
   </div>
