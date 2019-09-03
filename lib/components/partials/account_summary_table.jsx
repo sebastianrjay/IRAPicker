@@ -45,8 +45,9 @@ const AccountSummaryTable = (props) => {
     <div>
       <p>
         Investing in a <span className="font-weight-bold">{winner} IRA
-        </span> will give you the most retirement income, based on your current 
-        income, location, tax filing status and retirement plans. 
+        </span> will give you the most retirement income under 2018 tax rates,
+        based on your current income, location, tax filing status and retirement
+        plans.
         {
           winner === 'Roth' && props.annualIncome > ROTH_IRA_PHASE_OUT_INCOME
             ? <span>&nbsp;Because your income is above&nbsp;
