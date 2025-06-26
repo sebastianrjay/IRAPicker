@@ -1,7 +1,7 @@
 # About
 
 Not sure whether to choose a traditional or Roth IRA this year? 
-[Let software decide.](https://ira-picker.surge.sh/)
+[Let software decide.](https://www.ira-picker.com/)
 
 # Copyright
 
